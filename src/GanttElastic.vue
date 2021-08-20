@@ -1422,16 +1422,24 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
+        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = this.state.options.row.height;
+        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
+        // parameters of estimated task
+        task.xE = this.timeToPixelOffsetX(task.startPlanned);
+        task.yE = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
+        task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
+        if (task.widthE < 0) {
+          task.widthE = 0;
+        }
       }
       return visibleTasks;
     },

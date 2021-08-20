@@ -60,6 +60,7 @@
               :key="task.id"
             >
               <component :task="task" :is="task.type"></component>
+              <task-planned :task="task" v-if="task.isEstimated"></task-planned>
             </g>
           </svg>
         </div>
@@ -74,6 +75,7 @@ import DaysHighlight from './DaysHighlight.vue';
 import Calendar from '../Calendar/Calendar.vue';
 import DependencyLines from './DependencyLines.vue';
 import Task from './Row/Task.vue';
+import TaskPlanned from './Row/TaskPlanned.vue';
 import Milestone from './Row/Milestone.vue';
 import Project from './Row/Project.vue';
 export default {
@@ -83,6 +85,7 @@ export default {
     DependencyLines,
     Calendar,
     Task,
+    TaskPlanned,
     Milestone,
     Project,
     DaysHighlight

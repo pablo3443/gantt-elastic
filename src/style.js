@@ -260,6 +260,11 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       'stroke-width': 1,
       fill: '#F75C4C'
     },
+    'chart-row-bar-polygon-estimated': {
+      stroke: '#E74C3C',
+      'stroke-width': 1,
+      fill: '#F75C4C'
+    },
     'chart-row-project-wrapper': {},
     'chart-row-project': {},
     'chart-row-project-polygon': {},
@@ -268,6 +273,7 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
     'chart-row-milestone-polygon': {},
     'chart-row-task-wrapper': {},
     'chart-row-task': {},
+    'chart-row-task-planned': {},
     'chart-row-task-polygon': {},
     'chart-row-progress-bar-wrapper': {},
     'chart-row-progress-bar': {},

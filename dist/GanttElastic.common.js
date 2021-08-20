@@ -2673,7 +2673,11 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                             _c(task.type, {
                               tag: "component",
                               attrs: { task: task }
-                            })
+                            }),
+                            _vm._v(" "),
+                            task.isEstimated
+                              ? _c("task-planned", { attrs: { task: task } })
+                              : _vm._e()
                           ],
                           1
                         )
@@ -4698,6 +4702,224 @@ var Task_component = normalizeComponent(
 if (false) { var Task_api; }
 Task_component.options.__file = "src/components/Chart/Row/Task.vue"
 /* harmony default export */ var Task = (Task_component.exports);
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskPlanned.vue?vue&type=template&id=04a55a4e&
+var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "g",
+    {
+      staticClass:
+        "gantt-elastic__chart-row-bar-wrapper gantt-elastic__chart-row-task-wrapper",
+      style: Object.assign(
+        {},
+        _vm.root.style["chart-row-bar-wrapper"],
+        _vm.root.style["chart-row-task-wrapper"],
+        _vm.task.style["chart-row-bar-wrapper"]
+      )
+    },
+    [
+      _c(
+        "svg",
+        {
+          staticClass:
+            "gantt-elastic__chart-row-bar gantt-elastic__chart-row-task",
+          style: Object.assign(
+            {},
+            _vm.root.style["chart-row-bar"],
+            _vm.root.style["chart-row-task"],
+            _vm.task.style["chart-row-bar"]
+          ),
+          attrs: {
+            x: _vm.task.xE,
+            y: _vm.task.yE,
+            width: _vm.task.widthE,
+            height: _vm.task.height,
+            viewBox: "0 0 " + _vm.task.widthE + " " + _vm.task.height,
+            xmlns: "http://www.w3.org/2000/svg"
+          },
+          on: {
+            click: function($event) {
+              return _vm.emitEvent("click", $event)
+            },
+            mouseenter: function($event) {
+              return _vm.emitEvent("mouseenter", $event)
+            },
+            mouseover: function($event) {
+              return _vm.emitEvent("mouseover", $event)
+            },
+            mouseout: function($event) {
+              return _vm.emitEvent("mouseout", $event)
+            },
+            mousemove: function($event) {
+              return _vm.emitEvent("mousemove", $event)
+            },
+            mousedown: function($event) {
+              return _vm.emitEvent("mousedown", $event)
+            },
+            mouseup: function($event) {
+              return _vm.emitEvent("mouseup", $event)
+            },
+            mousewheel: function($event) {
+              return _vm.emitEvent("mousewheel", $event)
+            },
+            touchstart: function($event) {
+              return _vm.emitEvent("touchstart", $event)
+            },
+            touchmove: function($event) {
+              return _vm.emitEvent("touchmove", $event)
+            },
+            touchend: function($event) {
+              return _vm.emitEvent("touchend", $event)
+            }
+          }
+        },
+        [
+          _c("defs", [
+            _c("clipPath", { attrs: { id: _vm.clipPathId } }, [
+              _c("polygon", { attrs: { points: _vm.getPoints } })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("polygon", {
+            staticClass:
+              "gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-bar-polygon-estimated",
+            style: Object.assign(
+              {},
+              _vm.root.style["chart-row-bar-polygon"],
+              _vm.root.style["chart-row-task-polygon"],
+              _vm.task.style["base"],
+              _vm.task.style["chart-row-bar-polygon-estimated"]
+            ),
+            attrs: { points: _vm.getPoints }
+          })
+        ]
+      )
+    ]
+  )
+}
+var TaskPlannedvue_type_template_id_04a55a4e_staticRenderFns = []
+TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
+
+
+// CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue?vue&type=template&id=04a55a4e&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskPlanned.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ var TaskPlannedvue_type_script_lang_js_ = ({
+  name: 'Task',
+  inject: ['root'],
+  props: ['task'],
+  mixins: [Task_mixin],
+  data() {
+    return {};
+  },
+  computed: {
+    /**
+     * Get clip path id
+     *
+     * @returns {string}
+     */
+    clipPathId() {
+      return 'gantt-elastic__task-clip-path-' + this.task.id;
+    },
+
+    /**
+     * Get points
+     *
+     * @returns {string}
+     */
+    getPoints() {
+      const task = this.task;
+      return `0,0 ${task.widthE},0 ${task.widthE},${task.height} 0,${task.height}`;
+    }
+  }
+});
+
+// CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue?vue&type=script&lang=js&
+ /* harmony default export */ var Row_TaskPlannedvue_type_script_lang_js_ = (TaskPlannedvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue
+
+
+
+
+
+/* normalize component */
+
+var TaskPlanned_component = normalizeComponent(
+  Row_TaskPlannedvue_type_script_lang_js_,
+  TaskPlannedvue_type_template_id_04a55a4e_render,
+  TaskPlannedvue_type_template_id_04a55a4e_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var TaskPlanned_api; }
+TaskPlanned_component.options.__file = "src/components/Chart/Row/TaskPlanned.vue"
+/* harmony default export */ var TaskPlanned = (TaskPlanned_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Milestone.vue?vue&type=template&id=3013006c&
 var Milestonevue_type_template_id_3013006c_render = function() {
   var _vm = this
@@ -5393,6 +5615,8 @@ Project_component.options.__file = "src/components/Chart/Row/Project.vue"
 //
 //
 //
+//
+
 
 
 
@@ -5408,6 +5632,7 @@ Project_component.options.__file = "src/components/Chart/Row/Project.vue"
     DependencyLines: DependencyLines,
     Calendar: Calendar,
     Task: Task,
+    TaskPlanned: TaskPlanned,
     Milestone: Milestone,
     Project: Project,
     DaysHighlight: DaysHighlight
@@ -6044,6 +6269,11 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       'stroke-width': 1,
       fill: '#F75C4C'
     },
+    'chart-row-bar-polygon-estimated': {
+      stroke: '#E74C3C',
+      'stroke-width': 1,
+      fill: '#F75C4C'
+    },
     'chart-row-project-wrapper': {},
     'chart-row-project': {},
     'chart-row-project-polygon': {},
@@ -6052,6 +6282,7 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
     'chart-row-milestone-polygon': {},
     'chart-row-task-wrapper': {},
     'chart-row-task': {},
+    'chart-row-task-planned': {},
     'chart-row-task-polygon': {},
     'chart-row-progress-bar-wrapper': {},
     'chart-row-progress-bar': {},
@@ -7525,16 +7756,24 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
+        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = this.state.options.row.height;
+        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
+        // parameters of estimated task
+        task.xE = this.timeToPixelOffsetX(task.startPlanned);
+        task.yE = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
+        task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
+        if (task.widthE < 0) {
+          task.widthE = 0;
+        }
       }
       return visibleTasks;
     },
