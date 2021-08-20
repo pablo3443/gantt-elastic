@@ -1187,7 +1187,13 @@ function toComment(sourceMap) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "mergeDeep", function() { return /* reexport */ mergeDeep; });
+__webpack_require__.d(__webpack_exports__, "mergeDeepReactive", function() { return /* reexport */ mergeDeepReactive; });
+__webpack_require__.d(__webpack_exports__, "notEqualDeep", function() { return /* reexport */ notEqualDeep; });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/GanttElastic.vue?vue&type=template&id=02c6304c&
 var render = function() {
@@ -7939,9 +7945,6 @@ const GanttElastic = {
 var GanttElasticvue_type_style_index_0_lang_css_ = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./src/GanttElastic.vue
-/* concated harmony reexport mergeDeep */__webpack_require__.d(__webpack_exports__, "mergeDeep", function() { return mergeDeep; });
-/* concated harmony reexport mergeDeepReactive */__webpack_require__.d(__webpack_exports__, "mergeDeepReactive", function() { return mergeDeepReactive; });
-/* concated harmony reexport notEqualDeep */__webpack_require__.d(__webpack_exports__, "notEqualDeep", function() { return notEqualDeep; });
 
 
 
@@ -7971,7 +7974,11 @@ GanttElastic_component.options.__file = "src/GanttElastic.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ addStylesClient; });
 
 // CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/listToStyles.js
 /**
@@ -8003,7 +8010,6 @@ function listToStyles (parentId, list) {
 }
 
 // CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/addStylesClient.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addStylesClient; });
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
