@@ -8,6 +8,39 @@ module.exports = [
     entry: './src/bundle.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
+      filename: 'standalone.js'
+    },
+    devtool: 'source-map',
+    optimization: {
+      minimize: true,
+      namedModules: false,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            mangle: false
+          }
+        })
+      ]
+    },
+    module: {
+      rules: [
+        {
+          test: /\.vue$/,
+          use: 'vue-loader'
+        },
+        {
+          test: /\.css$/,
+          use: ['vue-style-loader', 'css-loader']
+        }
+      ]
+    },
+    plugins: [new VueLoaderPlugin()]
+  },
+  {
+    mode: 'production',
+    entry: './src/bundle.js',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js'
     },
     devtool: 'source-map',
