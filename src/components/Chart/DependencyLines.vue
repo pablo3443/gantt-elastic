@@ -15,6 +15,15 @@
     class="gantt-elastic__chart-dependency-lines-container"
     :style="{ ...root.style['chart-dependency-lines-container'] }"
   >
+    <defs>
+      <marker id="gantt-elastic__chart-dependency-lines-marker" viewBox="0 0 10 10"
+            refX="10" refY="5"
+            markerUnits="strokeWidth"
+            markerWidth="4" markerHeight="4"
+            orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z"></path>
+      </marker>
+    </defs>
     <g v-for="task in dependencyTasks" :key="task.id" :task="task">
       <path
         class="gantt-elastic__chart-dependency-lines-path"
@@ -23,6 +32,7 @@
         :key="dependencyLine.id"
         :task="task"
         :d="dependencyLine.points"
+        marker-end="url(#gantt-elastic__chart-dependency-lines-marker)"
       ></path>
     </g>
   </svg>

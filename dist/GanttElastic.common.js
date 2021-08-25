@@ -3734,29 +3734,55 @@ var DependencyLinesvue_type_template_id_f1cbf6ba_render = function() {
       ),
       attrs: { x: "0", y: "0", width: "100%", height: "100%" }
     },
-    _vm._l(_vm.dependencyTasks, function(task) {
-      return _c(
-        "g",
-        { key: task.id, attrs: { task: task } },
-        _vm._l(task.dependencyLines, function(dependencyLine) {
-          return _c("path", {
-            key: dependencyLine.id,
-            staticClass: "gantt-elastic__chart-dependency-lines-path",
-            style: Object.assign(
-              {},
-              _vm.root.style["chart-dependency-lines-path"],
-              task.style["chart-dependency-lines-path"],
-              task.style[
-                "chart-dependency-lines-path-" + dependencyLine.task_id
-              ]
-            ),
-            attrs: { task: task, d: dependencyLine.points }
-          })
-        }),
-        0
-      )
-    }),
-    0
+    [
+      _c("defs", [
+        _c(
+          "marker",
+          {
+            attrs: {
+              id: "gantt-elastic__chart-dependency-lines-marker",
+              viewBox: "0 0 10 10",
+              refX: "10",
+              refY: "5",
+              markerUnits: "strokeWidth",
+              markerWidth: "4",
+              markerHeight: "4",
+              orient: "auto"
+            }
+          },
+          [_c("path", { attrs: { d: "M 0 0 L 10 5 L 0 10 z" } })]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.dependencyTasks, function(task) {
+        return _c(
+          "g",
+          { key: task.id, attrs: { task: task } },
+          _vm._l(task.dependencyLines, function(dependencyLine) {
+            return _c("path", {
+              key: dependencyLine.id,
+              staticClass: "gantt-elastic__chart-dependency-lines-path",
+              style: Object.assign(
+                {},
+                _vm.root.style["chart-dependency-lines-path"],
+                task.style["chart-dependency-lines-path"],
+                task.style[
+                  "chart-dependency-lines-path-" + dependencyLine.task_id
+                ]
+              ),
+              attrs: {
+                task: task,
+                d: dependencyLine.points,
+                "marker-end":
+                  "url(#gantt-elastic__chart-dependency-lines-marker)"
+              }
+            })
+          }),
+          0
+        )
+      })
+    ],
+    2
   )
 }
 var DependencyLinesvue_type_template_id_f1cbf6ba_staticRenderFns = []
@@ -3766,6 +3792,16 @@ DependencyLinesvue_type_template_id_f1cbf6ba_render._withStripped = true
 // CONCATENATED MODULE: ./src/components/Chart/DependencyLines.vue?vue&type=template&id=f1cbf6ba&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/DependencyLines.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
