@@ -12,7 +12,7 @@
     :style="{ ...root.style['chart-row-text-wrapper'] }"
     :x="task.x + task.width + root.state.options.chart.text.offset"
     :y="task.y - root.state.options.chart.grid.horizontal.gap"
-    :width="getWidth"
+    :width="root.state.options.chart.text.maxWidth"
     :height="getHeight"
   >
     <foreignObject x="0" y="0" width="100%" :height="getHeight">
@@ -56,18 +56,6 @@ export default {
     return {};
   },
   computed: {
-    /**
-     * Get width
-     *
-     * @returns {number}
-     */
-    getWidth() {
-      const textStyle = this.root.style['chart-row-text'];
-      this.root.state.ctx.font = `${textStyle['font-weight']} ${textStyle['font-size']} ${textStyle['font-family']}`;
-      const textWidth = this.root.state.ctx.measureText(this.task.label).width;
-      return textWidth + this.root.state.options.chart.text.xPadding * 2;
-    },
-
     /**
      * Get height
      *

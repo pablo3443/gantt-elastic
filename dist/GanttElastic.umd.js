@@ -3214,8 +3214,7 @@ var CalendarRowvue_type_template_id_0daf06fb_render = function() {
                 {
                   class:
                     "gantt-elastic__calendar-row-text gantt-elastic__calendar-row-text--" +
-                    _vm.which,
-                  style: _vm.textStyle(child)
+                    _vm.which
                 },
                 [_vm._v("\n        " + _vm._s(child.label) + "\n      ")]
               )
@@ -3267,7 +3266,6 @@ CalendarRowvue_type_template_id_0daf06fb_render._withStripped = true
 //
 //
 //
-//
 
 /* harmony default export */ var CalendarRowvue_type_script_lang_js_ = ({
   name: 'CalendarRow',
@@ -3282,19 +3280,19 @@ CalendarRowvue_type_template_id_0daf06fb_render._withStripped = true
      *
      * @returns {number}
      */
-    getTextX(item) {
-      let x = item.x + item.width / 2 - item.textWidth / 2;
-      if (this.which === 'month' && this.root.isInsideViewPort(item.x, item.width, 0)) {
-        let scrollWidth = this.root.state.options.scroll.chart.right - this.root.state.options.scroll.chart.left;
-        x = this.root.state.options.scroll.chart.left + scrollWidth / 2 - item.textWidth / 2 + 2;
-        if (x + item.textWidth + 2 > item.x + item.width) {
-          x = item.x + item.width - item.textWidth - 2;
-        } else if (x < item.x) {
-          x = item.x + 2;
-        }
-      }
-      return x - item.x;
-    }
+    // getTextX(item) {
+    //   let x = item.x + item.width / 2 - item.textWidth / 2;
+    //   if (this.which === 'month' && this.root.isInsideViewPort(item.x, item.width, 0)) {
+    //     let scrollWidth = this.root.state.options.scroll.chart.right - this.root.state.options.scroll.chart.left;
+    //     x = this.root.state.options.scroll.chart.left + scrollWidth / 2 - item.textWidth / 2 + 2;
+    //     if (x + item.textWidth + 2 > item.x + item.width) {
+    //       x = item.x + item.width - item.textWidth - 2;
+    //     } else if (x < item.x) {
+    //       x = item.x + 2;
+    //     }
+    //   }
+    //   return x - item.x;
+    // }
   },
   computed: {
     rowStyle() {
@@ -3322,19 +3320,19 @@ CalendarRowvue_type_template_id_0daf06fb_render._withStripped = true
       }
       return style;
     },
-    textStyle() {
-      const basicStyle = {
-        ...this.root.style['calendar-row-text'],
-        ...this.root.style['calendar-row-text--' + this.which]
-      };
-      return child => {
-        const style = { ...basicStyle };
-        if (this.which === 'month') {
-          style.left = this.getTextX(child) + 'px';
-        }
-        return style;
-      };
-    }
+    // textStyle() {
+    //   const basicStyle = {
+    //     ...this.root.style['calendar-row-text'],
+    //     ...this.root.style['calendar-row-text--' + this.which]
+    //   };
+    //   return child => {
+    //     const style = { ...basicStyle };
+    //     if (this.which === 'month') {
+    //       style.left = this.getTextX(child) + 'px';
+    //     }
+    //     return style;
+    //   };
+    // }
   }
 });
 
@@ -4097,6 +4095,70 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
         1
       ),
       _vm._v(" "),
+      _vm.root.state.options.chart.title.display
+        ? _c(
+            "foreignObject",
+            {
+              attrs: {
+                x: _vm.task.x - _vm.root.state.options.chart.title.offsetX,
+                y: _vm.task.y - _vm.root.state.options.chart.title.offsetY,
+                width: _vm.task.width,
+                height: _vm.task.height
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "gantt-elastic__chart-row-title-wrapper",
+                  style: Object.assign(
+                    {},
+                    _vm.task.style["chart-row-title-wrapper"]
+                  ),
+                  attrs: {
+                    xmlns: "http://www.w3.org/1999/xhtml",
+                    task: _vm.task
+                  }
+                },
+                [
+                  !_vm.root.state.options.chart.title.html
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "gantt-elastic__chart-row-title-text",
+                          style: Object.assign(
+                            {},
+                            _vm.task.style["chart-row-title-text"],
+                            _vm.task.style["chart-row-title-text--text"]
+                          ),
+                          attrs: { task: _vm.task }
+                        },
+                        [
+                          _vm._v(
+                            "\n        " + _vm._s(_vm.task.title) + "\n      "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.root.state.options.chart.title.html
+                    ? _c("div", {
+                        staticClass: "gantt-elastic__chart-row-title-text",
+                        style: Object.assign(
+                          {},
+                          _vm.task.style["chart-row-title-text"],
+                          _vm.task.style["chart-row-title-text--html"]
+                        ),
+                        attrs: { task: _vm.task },
+                        domProps: { innerHTML: _vm._s(_vm.task.title) }
+                      })
+                    : _vm._e()
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm.root.state.options.chart.text.display
         ? _c("chart-text", { attrs: { task: _vm.task } })
         : _vm._e()
@@ -4126,7 +4188,7 @@ var Textvue_type_template_id_459c2fe4_render = function() {
           _vm.task.width +
           _vm.root.state.options.chart.text.offset,
         y: _vm.task.y - _vm.root.state.options.chart.grid.horizontal.gap,
-        width: _vm.getWidth,
+        width: _vm.root.state.options.chart.text.maxWidth,
         height: _vm.getHeight
       }
     },
@@ -4246,18 +4308,6 @@ Textvue_type_template_id_459c2fe4_render._withStripped = true
     return {};
   },
   computed: {
-    /**
-     * Get width
-     *
-     * @returns {number}
-     */
-    getWidth() {
-      const textStyle = this.root.style['chart-row-text'];
-      this.root.state.ctx.font = `${textStyle['font-weight']} ${textStyle['font-size']} ${textStyle['font-family']}`;
-      const textWidth = this.root.state.ctx.measureText(this.task.label).width;
-      return textWidth + this.root.state.options.chart.text.xPadding * 2;
-    },
-
     /**
      * Get height
      *
@@ -4614,6 +4664,37 @@ ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
 });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Task.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6296,7 +6377,10 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
     'chart-graph': {
       overflow: 'hidden'
     },
-    'chart-row-text-wrapper': {},
+    'chart-row-title-wrapper': {
+      height: '100%',
+      width: '100%',
+    },
     'chart-row-text': {
       background: '#ffffffa0',
       'border-radius': '10px',
@@ -6325,6 +6409,8 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       'stroke-width': 1,
       fill: '#F75C4C'
     },
+    'chart-row-bar-text': {},
+    'chart-row-bar-text-wrapper': {},
     'chart-row-project-wrapper': {},
     'chart-row-project': {},
     'chart-row-project-polygon': {},
@@ -6513,7 +6599,8 @@ function getOptions(userOptions) {
       text: {
         offset: 4, //*
         xPadding: 10, //*
-        display: true //*
+        display: true, //*
+        maxWidth: 200
       },
       expander: {
         type: 'chart',
@@ -6521,6 +6608,12 @@ function getOptions(userOptions) {
         displayIfTaskListHidden: true, //*
         offset: 4, //*
         size: 18
+      },
+      title: {
+        display: false,
+        offsetX: 0,
+        offsetY: 0,
+        html: false
       }
     },
     taskList: {

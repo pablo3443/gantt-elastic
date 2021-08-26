@@ -68,6 +68,37 @@
       ></polygon>
       <progress-bar :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
+    <foreignObject
+      v-if="root.state.options.chart.title.display"
+      :x="task.x - root.state.options.chart.title.offsetX"
+      :y="task.y - root.state.options.chart.title.offsetY"
+      :width="task.width"
+      :height="task.height"
+    >
+      <div
+        xmlns="http://www.w3.org/1999/xhtml"
+        class="gantt-elastic__chart-row-title-wrapper"
+        :task="task"
+        :style="{ ...task.style['chart-row-title-wrapper'] }"
+      >
+        <div
+          class="gantt-elastic__chart-row-title-text"
+          :task="task"
+          :style="{ ...task.style['chart-row-title-text'], ...task.style['chart-row-title-text--text'] }"
+          v-if="!root.state.options.chart.title.html"
+        >
+          {{task.title}}
+        </div>
+        <div
+          class="gantt-elastic__chart-row-title-text"
+          :task="task"
+          :style="{ ...task.style['chart-row-title-text'], ...task.style['chart-row-title-text--html'] }"
+          v-if="root.state.options.chart.title.html"
+          v-html="task.title"
+        >
+        </div>
+      </div>
+    </foreignObject>
     <chart-text :task="task" v-if="root.state.options.chart.text.display"></chart-text>
   </g>
 </template>

@@ -22,7 +22,6 @@
       >
         <div
           :class="'gantt-elastic__calendar-row-text gantt-elastic__calendar-row-text--' + which"
-          :style="textStyle(child)"
         >
           {{ child.label }}
         </div>
@@ -45,19 +44,19 @@ export default {
      *
      * @returns {number}
      */
-    getTextX(item) {
-      let x = item.x + item.width / 2 - item.textWidth / 2;
-      if (this.which === 'month' && this.root.isInsideViewPort(item.x, item.width, 0)) {
-        let scrollWidth = this.root.state.options.scroll.chart.right - this.root.state.options.scroll.chart.left;
-        x = this.root.state.options.scroll.chart.left + scrollWidth / 2 - item.textWidth / 2 + 2;
-        if (x + item.textWidth + 2 > item.x + item.width) {
-          x = item.x + item.width - item.textWidth - 2;
-        } else if (x < item.x) {
-          x = item.x + 2;
-        }
-      }
-      return x - item.x;
-    }
+    // getTextX(item) {
+    //   let x = item.x + item.width / 2 - item.textWidth / 2;
+    //   if (this.which === 'month' && this.root.isInsideViewPort(item.x, item.width, 0)) {
+    //     let scrollWidth = this.root.state.options.scroll.chart.right - this.root.state.options.scroll.chart.left;
+    //     x = this.root.state.options.scroll.chart.left + scrollWidth / 2 - item.textWidth / 2 + 2;
+    //     if (x + item.textWidth + 2 > item.x + item.width) {
+    //       x = item.x + item.width - item.textWidth - 2;
+    //     } else if (x < item.x) {
+    //       x = item.x + 2;
+    //     }
+    //   }
+    //   return x - item.x;
+    // }
   },
   computed: {
     rowStyle() {
@@ -85,19 +84,19 @@ export default {
       }
       return style;
     },
-    textStyle() {
-      const basicStyle = {
-        ...this.root.style['calendar-row-text'],
-        ...this.root.style['calendar-row-text--' + this.which]
-      };
-      return child => {
-        const style = { ...basicStyle };
-        if (this.which === 'month') {
-          style.left = this.getTextX(child) + 'px';
-        }
-        return style;
-      };
-    }
+    // textStyle() {
+    //   const basicStyle = {
+    //     ...this.root.style['calendar-row-text'],
+    //     ...this.root.style['calendar-row-text--' + this.which]
+    //   };
+    //   return child => {
+    //     const style = { ...basicStyle };
+    //     if (this.which === 'month') {
+    //       style.left = this.getTextX(child) + 'px';
+    //     }
+    //     return style;
+    //   };
+    // }
   }
 };
 </script>

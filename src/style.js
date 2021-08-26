@@ -236,7 +236,10 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
     'chart-graph': {
       overflow: 'hidden'
     },
-    'chart-row-text-wrapper': {},
+    'chart-row-title-wrapper': {
+      height: '100%',
+      width: '100%',
+    },
     'chart-row-text': {
       background: '#ffffffa0',
       'border-radius': '10px',
@@ -265,6 +268,8 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       'stroke-width': 1,
       fill: '#F75C4C'
     },
+    'chart-row-bar-text': {},
+    'chart-row-bar-text-wrapper': {},
     'chart-row-project-wrapper': {},
     'chart-row-project': {},
     'chart-row-project-polygon': {},

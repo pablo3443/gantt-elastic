@@ -128,7 +128,8 @@ function getOptions(userOptions) {
       text: {
         offset: 4, //*
         xPadding: 10, //*
-        display: true //*
+        display: true, //*
+        maxWidth: 200
       },
       expander: {
         type: 'chart',
@@ -136,6 +137,12 @@ function getOptions(userOptions) {
         displayIfTaskListHidden: true, //*
         offset: 4, //*
         size: 18
+      },
+      title: {
+        display: false,
+        offsetX: 0,
+        offsetY: 0,
+        html: false
       }
     },
     taskList: {
