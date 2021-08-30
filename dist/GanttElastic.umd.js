@@ -2690,8 +2690,8 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                               attrs: { task: task }
                             }),
                             _vm._v(" "),
-                            task.isEstimated
-                              ? _c("task-planned", { attrs: { task: task } })
+                            task.hasActualTask
+                              ? _c("task-actual", { attrs: { task: task } })
                               : _vm._e()
                           ],
                           1
@@ -4085,12 +4085,14 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
             attrs: { points: _vm.getPoints }
           }),
           _vm._v(" "),
-          _c("progress-bar", {
-            attrs: {
-              task: _vm.task,
-              "clip-path": "url(#" + _vm.clipPathId + ")"
-            }
-          })
+          !_vm.root.state.options.chart.progress.showOnActualTask
+            ? _c("progress-bar", {
+                attrs: {
+                  task: _vm.task,
+                  "clip-path": "url(#" + _vm.clipPathId + ")"
+                }
+              })
+            : _vm._e()
         ],
         1
       ),
@@ -4438,9 +4440,9 @@ var ProgressBarvue_type_template_id_4bc39355_render = function() {
                 _vm.task.style["chart-row-progress-bar-pattern"]
               ),
               attrs: {
-                x: _vm.getProgressWidth,
+                x: 0,
                 y: "0",
-                width: 100 - _vm.task.progress + "%",
+                width: _vm.getProgressWidth,
                 height: "100%"
               }
             }),
@@ -4553,7 +4555,12 @@ ProgressBarvue_type_template_id_4bc39355_render._withStripped = true
      * @returns {string}
      */
     getLinePoints() {
-      const start = (this.task.width / 100) * this.task.progress;
+      let start;
+      if (this.root.state.options.chart.progress.showOnActualTask) {
+        start = (this.task.widthE / 100) * this.task.progress;
+      } else {
+        start = (this.task.width / 100) * this.task.progress;
+      }
       return `M ${start} 0 L ${start} ${this.task.height}`;
     },
 
@@ -4834,8 +4841,8 @@ var Task_component = normalizeComponent(
 if (false) { var Task_api; }
 Task_component.options.__file = "src/components/Chart/Row/Task.vue"
 /* harmony default export */ var Task = (Task_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskPlanned.vue?vue&type=template&id=04a55a4e&
-var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskActual.vue?vue&type=template&id=6a4d2109&
+var TaskActualvue_type_template_id_6a4d2109_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -4925,19 +4932,30 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
               _vm.task.style["chart-row-bar-polygon-estimated"]
             ),
             attrs: { points: _vm.getPoints }
-          })
-        ]
+          }),
+          _vm._v(" "),
+          _vm.root.state.options.chart.progress.showOnActualTask
+            ? _c("progress-bar", {
+                attrs: {
+                  task: _vm.task,
+                  "clip-path": "url(#" + _vm.clipPathId + ")"
+                }
+              })
+            : _vm._e()
+        ],
+        1
       )
     ]
   )
 }
-var TaskPlannedvue_type_template_id_04a55a4e_staticRenderFns = []
-TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
+var TaskActualvue_type_template_id_6a4d2109_staticRenderFns = []
+TaskActualvue_type_template_id_6a4d2109_render._withStripped = true
 
 
-// CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue?vue&type=template&id=04a55a4e&
+// CONCATENATED MODULE: ./src/components/Chart/Row/TaskActual.vue?vue&type=template&id=6a4d2109&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskPlanned.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskActual.vue?vue&type=script&lang=js&
+//
 //
 //
 //
@@ -4997,8 +5015,10 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
 //
 
 
-/* harmony default export */ var TaskPlannedvue_type_script_lang_js_ = ({
+
+/* harmony default export */ var TaskActualvue_type_script_lang_js_ = ({
   name: 'Task',
+  components: { ProgressBar: ProgressBar },
   inject: ['root'],
   props: ['task'],
   mixins: [Task_mixin],
@@ -5027,9 +5047,9 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
   }
 });
 
-// CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue?vue&type=script&lang=js&
- /* harmony default export */ var Row_TaskPlannedvue_type_script_lang_js_ = (TaskPlannedvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue
+// CONCATENATED MODULE: ./src/components/Chart/Row/TaskActual.vue?vue&type=script&lang=js&
+ /* harmony default export */ var Row_TaskActualvue_type_script_lang_js_ = (TaskActualvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/Chart/Row/TaskActual.vue
 
 
 
@@ -5037,10 +5057,10 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
 
 /* normalize component */
 
-var TaskPlanned_component = normalizeComponent(
-  Row_TaskPlannedvue_type_script_lang_js_,
-  TaskPlannedvue_type_template_id_04a55a4e_render,
-  TaskPlannedvue_type_template_id_04a55a4e_staticRenderFns,
+var TaskActual_component = normalizeComponent(
+  Row_TaskActualvue_type_script_lang_js_,
+  TaskActualvue_type_template_id_6a4d2109_render,
+  TaskActualvue_type_template_id_6a4d2109_staticRenderFns,
   false,
   null,
   null,
@@ -5049,9 +5069,9 @@ var TaskPlanned_component = normalizeComponent(
 )
 
 /* hot reload */
-if (false) { var TaskPlanned_api; }
-TaskPlanned_component.options.__file = "src/components/Chart/Row/TaskPlanned.vue"
-/* harmony default export */ var TaskPlanned = (TaskPlanned_component.exports);
+if (false) { var TaskActual_api; }
+TaskActual_component.options.__file = "src/components/Chart/Row/TaskActual.vue"
+/* harmony default export */ var TaskActual = (TaskActual_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Milestone.vue?vue&type=template&id=3013006c&
 var Milestonevue_type_template_id_3013006c_render = function() {
   var _vm = this
@@ -5764,7 +5784,7 @@ Project_component.options.__file = "src/components/Chart/Row/Project.vue"
     DependencyLines: DependencyLines,
     Calendar: Calendar,
     Task: Task,
-    TaskPlanned: TaskPlanned,
+    TaskActual: TaskActual,
     Milestone: Milestone,
     Project: Project,
     DaysHighlight: DaysHighlight
@@ -7900,13 +7920,13 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
+        task.hasActualTask = task.startPlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
+        task.height = task.hasActualTask ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +

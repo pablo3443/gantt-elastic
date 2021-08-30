@@ -51,14 +51,17 @@
         }"
         :points="getPoints"
       ></polygon>
+      <progress-bar v-if="root.state.options.chart.progress.showOnActualTask" :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
   </g>
 </template>
 
 <script>
 import taskMixin from './Task.mixin.js';
+import ProgressBar from "../ProgressBar.vue";
 export default {
   name: 'Task',
+  components: { ProgressBar },
   inject: ['root'],
   props: ['task'],
   mixins: [taskMixin],
