@@ -224,7 +224,8 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       'user-select': 'none',
       overflow: 'hidden',
       'max-width': '100%',
-      'border-right': '1px solid #eee'
+      'border-right': '1px solid #eee',
+      'text-align': 'center'
     },
     'chart-graph-container': {
       'user-select': 'none',

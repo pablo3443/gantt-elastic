@@ -41,9 +41,9 @@
       <rect
         class="gantt-elastic__chart-row-progress-bar-pattern"
         :style="{ ...root.style['chart-row-progress-bar-pattern'], ...task.style['chart-row-progress-bar-pattern'] }"
-        :x="getProgressWidth"
+        :x="0"
         y="0"
-        :width="100 - task.progress + '%'"
+        :width="getProgressWidth"
         height="100%"
       ></rect>
       <path
@@ -84,7 +84,12 @@ export default {
      * @returns {string}
      */
     getLinePoints() {
-      const start = (this.task.width / 100) * this.task.progress;
+      let start;
+      if (this.root.state.options.chart.progress.showOnActualTask) {
+        start = (this.task.widthE / 100) * this.task.progress;
+      } else {
+        start = (this.task.width / 100) * this.task.progress;
+      }
       return `M ${start} 0 L ${start} ${this.task.height}`;
     },
 

@@ -66,7 +66,7 @@
         }"
         :points="getPoints"
       ></polygon>
-      <progress-bar :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
+      <progress-bar v-if="!root.state.options.chart.progress.showOnActualTask" :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
     <foreignObject
       v-if="root.state.options.chart.title.display"

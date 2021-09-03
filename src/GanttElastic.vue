@@ -21,6 +21,13 @@ import MainView from './components/MainView.vue';
 import getStyle from './style.js';
 import ResizeObserver from 'resize-observer-polyfill';
 
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+dayjs.extend(weekOfYear);
+import  quarterOfYear from 'dayjs/plugin/quarterOfYear';
+dayjs.extend(quarterOfYear);
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+dayjs.extend(advancedFormat);
+
 const ctx = document.createElement('canvas').getContext('2d');
 let VueInst = VueInstance;
 function initVue() {
@@ -123,7 +130,8 @@ function getOptions(userOptions) {
         width: 20, //*
         height: 6, //*
         pattern: true,
-        bar: false
+        bar: false,
+        showOnActualTask: true
       },
       text: {
         offset: 4, //*
@@ -217,6 +225,17 @@ function getOptions(userOptions) {
           }
         }
       },
+      week: {
+        height: 20, //*
+        display: true, //*
+        widths: [],
+        maxWidths: { long: 0 },
+        format: {
+          long(date) {
+            return date.format('wo');
+          }
+        }
+      },
       month: {
         height: 20, //*
         display: true, //*
@@ -228,10 +247,35 @@ function getOptions(userOptions) {
             return date.format('MM');
           },
           medium(date) {
-            return date.format("MMM 'YY");
+            return date.format("MMM");
           },
           long(date) {
-            return date.format('MMMM YYYY');
+            return date.format('MMMM');
+          }
+        }
+      },
+      quarter: {
+        height: 20,
+        display: true,
+        widths: [],
+        maxWidths: { short: 0, long: 160 },
+        format: {
+          short(date) {
+            return date.format('Q');
+          },
+          long(date) {
+            return date.format('Q Do YYYY'); // ad hoc - localization
+          }
+        }
+      },
+      year: {
+        height: 20,
+        display: true,
+        widths: [],
+        maxWidths: { long: 0 },
+        format: {
+          long(date) {
+            return date.format('YYYY');
           }
         }
       }
@@ -571,13 +615,24 @@ const GanttElastic = {
         if (typeof task.startTime === 'undefined') {
           task.startTime = dayjs(task.start).valueOf();
         }
+        if (typeof task.startTimePlanned === 'undefined') {
+          task.startTimePlanned = dayjs(task.startPlanned).valueOf();
+        }
         if (typeof task.endTime === 'undefined' && task.hasOwnProperty('end')) {
           task.endTime = dayjs(task.end).valueOf();
         } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('duration')) {
           task.endTime = task.startTime + task.duration;
         }
+        if (typeof task.endTimePlanned === 'undefined' && task.hasOwnProperty('endPlanned')) {
+          task.endTimePlanned = dayjs(task.end).valueOf();
+        } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('durationPlanned')) {
+          task.endTimePlanned = task.startTimePlanned + task.durationPlanned;
+        }
         if (typeof task.duration === 'undefined' && task.hasOwnProperty('endTime')) {
           task.duration = task.endTime - task.startTime;
+        }
+        if (typeof task.durationPlanned === 'undefined' && task.hasOwnProperty('endTimePlanned')) {
+          task.durationPlanned = task.endTimePlanned - task.startTimePlanned;
         }
       }
       return tasks;
@@ -1166,7 +1221,7 @@ const GanttElastic = {
       for (
         let currentDate = dayjs(this.state.options.times.firstTime)
           .add(1, this.state.options.times.stepDuration)
-          .startOf('day');
+          .startOf(this.state.options.times.stepDuration);
         currentDate.valueOf() <= lastMs;
         currentDate = currentDate.add(1, this.state.options.times.stepDuration).startOf('day')
       ) {
@@ -1292,6 +1347,87 @@ const GanttElastic = {
         previousMonth = currentMonth.clone();
       }
       return monthsCount;
+    },
+
+    /**
+     * Weeks count
+     *
+     * @description Returns number of different weeks in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different weeks count
+     */
+    weeksCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentWeek = dayjs(fromTime);
+      let previousWeek = currentWeek.clone();
+      let weekCount = 1;
+      while (currentWeek.valueOf() <= toTime) {
+        currentWeek = currentWeek.add(1, 'day');
+        if (previousWeek.week() !== currentWeek.week()) {
+          weekCount++;
+        }
+        previousWeek = currentWeek.clone();
+      }
+      return weekCount;
+    },
+
+    /**
+     * Quarters count
+     *
+     * @description Returns number of different quarters in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different quarters count
+     */
+    quartersCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentQuarter = dayjs(fromTime);
+      let previousQuarter = currentQuarter.clone();
+      let quarterCount = 1;
+      while (currentQuarter.valueOf() <= toTime) {
+        currentQuarter = currentQuarter.add(1, 'day');
+        if (previousQuarter.quarter() !== currentQuarter.quarter()) {
+          quarterCount++;
+        }
+        previousQuarter = currentQuarter.clone();
+      }
+      return quarterCount;
+    },
+
+    /**
+     * Years count
+     *
+     * @description Returns number of different years in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different years count
+     */
+    yearsCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentYear = dayjs(fromTime);
+      let previousYear = currentYear.clone();
+      let yearCount = 1;
+      while (currentYear.valueOf() <= toTime) {
+        currentYear = currentYear.add(1, 'day');
+        if (previousYear.year() !== currentYear.year()) {
+          yearCount++;
+        }
+        previousYear = currentYear.clone();
+      }
+      return yearCount;
     },
 
     /**
@@ -1429,20 +1565,20 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
+        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
+        task.height = task.isPlanned ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
-        // parameters of estimated task
-        task.xE = this.timeToPixelOffsetX(task.startPlanned);
-        task.yE = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
+        // parameters of planned task view
+        task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
+        task.yP = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
         task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.widthE < 0) {
           task.widthE = 0;

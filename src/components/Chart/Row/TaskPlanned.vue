@@ -18,8 +18,8 @@
     <svg
       class="gantt-elastic__chart-row-bar gantt-elastic__chart-row-task"
       :style="{ ...root.style['chart-row-bar'], ...root.style['chart-row-task'], ...task.style['chart-row-bar'] }"
-      :x="task.xE"
-      :y="task.yE"
+      :x="task.xP"
+      :y="task.yP"
       :width="task.widthE"
       :height="task.height"
       :viewBox="`0 0 ${task.widthE} ${task.height}`"
@@ -51,14 +51,19 @@
         }"
         :points="getPoints"
       ></polygon>
+      <progress-bar v-if="root.state.options.chart.progress.showOnActualTask" :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
   </g>
 </template>
 
 <script>
 import taskMixin from './Task.mixin.js';
+import ProgressBar from '../ProgressBar.vue';
 export default {
   name: 'Task',
+  components: {
+    ProgressBar
+  },
   inject: ['root'],
   props: ['task'],
   mixins: [taskMixin],

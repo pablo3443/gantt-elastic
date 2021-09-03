@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -108,11 +108,11 @@ return /******/ (function(modules) { // webpackBootstrap
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(6);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var add = __webpack_require__(9).default
+var add = __webpack_require__(12).default
 var update = add("c3e5085c", content, false, {});
 // Hot Module Replacement
 if(false) {}
@@ -1057,10 +1057,31 @@ var index = (function () {
 
 /* harmony default export */ __webpack_exports__["a"] = (index);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}(this,function(){"use strict";var e="year";return function(t,i,n){var r=i.prototype;r.week=function(t){if(void 0===t&&(t=null),null!==t)return this.add(7*(t-this.week()),"day");var i=this.$locale().weekStart||0,r=n(this).endOf(e);if(0===i&&6!==r.day()&&11===this.month()&&31-this.date()<=r.day())return 1;var d=n(this).startOf(e),a=d.subtract(d.day()-i,"day").subtract(1,"millisecond"),o=this.diff(a,"week",!0);return Math.ceil(o)},r.weeks=function(e){return void 0===e&&(e=null),this.week(e)}}});
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="month",n="quarter";return function(r,i){var e=i.prototype;e.quarter=function(t){return this.$utils().u(t)?Math.ceil((this.month()+1)/3):this.month(this.month()%3+3*(t-1))};var u=e.add;e.add=function(r,i){return r=Number(r),this.$utils().p(i)===n?this.add(3*r,t):u.bind(this)(r,i)};var s=e.startOf;e.startOf=function(r,i){var e=this.$utils(),u=!!e.u(i)||i;if(e.p(r)===n){var a=this.quarter()-1;return u?this.month(3*a).startOf(t).startOf("day"):this.month(3*a+2).endOf(t).endOf("day")}return s.bind(this)(r,i)}}});
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}(this,function(){"use strict";return function(e,t,r){var n=t.prototype,o=n.format;r.en.ordinal=function(e){var t=["th","st","nd","rd"],r=e%100;return"["+e+(t[(r-20)%10]||t[r]||t[0])+"]"},n.format=function(e){var t=this,r=this.$locale(),n=this.$utils(),i=(e||"YYYY-MM-DDTHH:mm:ssZ").replace(/\[([^\]]+)]|Q|wo|gggg|Do|X|x|k{1,2}|S/g,function(e){switch(e){case"Q":return Math.ceil((t.$M+1)/3);case"Do":return r.ordinal(t.$D);case"gggg":return t.weekYear();case"wo":return r.ordinal(t.week(),"W");case"k":case"kk":return n.s(String(0===t.$H?24:t.$H),"k"===e?1:2,"0");case"X":return Math.floor(t.$d.getTime()/1e3);case"x":return t.$d.getTime();default:return e}});return o.bind(this)(i)}}});
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1086,7 +1107,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1096,10 +1117,10 @@ module.exports = g;
  /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_GanttElastic_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(7)(false);
+exports = module.exports = __webpack_require__(10)(false);
 // imports
 
 
@@ -1110,7 +1131,7 @@ exports.push([module.i, "\n[class^='gantt-elastic'],\r\n[class*=' gantt-elastic'
 
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /*
@@ -1192,7 +1213,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2690,7 +2711,7 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                               attrs: { task: task }
                             }),
                             _vm._v(" "),
-                            task.isEstimated
+                            task.isPlanned
                               ? _c("task-planned", { attrs: { task: task } })
                               : _vm._e()
                           ],
@@ -3147,9 +3168,27 @@ var Calendarvue_type_template_id_dee108e2_render = function() {
           })
         },
         [
+          _vm.root.state.options.calendar.year.display
+            ? _c("calendar-row", {
+                attrs: { items: _vm.dates.years, which: "year" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.root.state.options.calendar.quarter.display
+            ? _c("calendar-row", {
+                attrs: { items: _vm.dates.quarters, which: "quarter" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
           _vm.root.state.options.calendar.month.display
             ? _c("calendar-row", {
                 attrs: { items: _vm.dates.months, which: "month" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.root.state.options.calendar.week.display
+            ? _c("calendar-row", {
+                attrs: { items: _vm.dates.weeks, which: "week" }
               })
             : _vm._e(),
           _vm._v(" "),
@@ -3383,6 +3422,9 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3457,6 +3499,52 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
     },
 
     /**
+     * How many weeks will fit?
+     *
+     * @returns {object}
+     */
+    howManyWeeksFit() {
+        const stroke = 1;
+        const additionalSpace = stroke + 2;
+        let fullWidth = this.root.state.options.width;
+        let formatNames = Object.keys(this.root.state.options.calendar.week.format);
+        let currentWeek = dayjs_min_default()(this.root.state.options.times.firstTime);
+        let previousWeek = currentWeek.clone();
+        const lastTime = this.root.state.options.times.lastTime;
+        let weeksCount = this.root.weeksCount(
+          this.root.state.options.times.firstTime,
+          this.root.state.options.times.lastTime
+        );
+        if (weeksCount === 1) {
+          for (let formatName of formatNames) {
+            if (this.root.state.options.calendar.week.maxWidths[formatName] + additionalSpace <= fullWidth) {
+              return {
+                count: 1,
+                type: formatName
+              };
+            }
+          }
+        }
+        for (let weeks = weeksCount; weeks > 1; weeks = Math.ceil(weeks / 2)) {
+          for (let formatName of formatNames) {
+            if (
+              (this.root.state.options.calendar.week.maxWidths[formatName] + additionalSpace) * weeks <= fullWidth &&
+              weeks > 1
+            ) {
+              return {
+                count: weeks,
+                type: formatName
+              };
+            }
+          }
+        }
+        return {
+          count: 0,
+          type: formatNames[0]
+        };
+      },
+
+    /**
      * How many months will fit?
      *
      * @returns {object}
@@ -3491,6 +3579,98 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
           ) {
             return {
               count: months,
+              type: formatName
+            };
+          }
+        }
+      }
+      return {
+        count: 0,
+        type: formatNames[0]
+      };
+    },
+
+    /**
+     * How many quarters will fit?
+     *
+     * @returns {object}
+     */
+    howManyQuartersFit() {
+      const stroke = 1;
+      const additionalSpace = stroke + 2;
+      let fullWidth = this.root.state.options.width;
+      let formatNames = Object.keys(this.root.state.options.calendar.quarter.format);
+      let currentquarter = dayjs_min_default()(this.root.state.options.times.firstTime);
+      let previousquarter = currentquarter.clone();
+      const lastTime = this.root.state.options.times.lastTime;
+      let quartersCount = this.root.quartersCount(
+        this.root.state.options.times.firstTime,
+        this.root.state.options.times.lastTime
+      );
+      if (quartersCount === 1) {
+        for (let formatName of formatNames) {
+          if (this.root.state.options.calendar.quarter.maxWidths[formatName] + additionalSpace <= fullWidth) {
+            return {
+              count: 1,
+              type: formatName
+            };
+          }
+        }
+      }
+      for (let quarters = quartersCount; quarters > 1; quarters = Math.ceil(quarters / 2)) {
+        for (let formatName of formatNames) {
+          if (
+            (this.root.state.options.calendar.quarter.maxWidths[formatName] + additionalSpace) * quarters <= fullWidth &&
+            quarters > 1
+          ) {
+            return {
+              count: quarters,
+              type: formatName
+            };
+          }
+        }
+      }
+      return {
+        count: 0,
+        type: formatNames[0]
+      };
+    },
+
+    /**
+     * How many years will fit?
+     *
+     * @returns {object}
+     */
+    howManyYearsFit() {
+      const stroke = 1;
+      const additionalSpace = stroke + 2;
+      let fullWidth = this.root.state.options.width;
+      let formatNames = Object.keys(this.root.state.options.calendar.year.format);
+      let currentYear = dayjs_min_default()(this.root.state.options.times.firstTime);
+      let previousYear = currentYear.clone();
+      const lastTime = this.root.state.options.times.lastTime;
+      let yearsCount = this.root.yearsCount(
+        this.root.state.options.times.firstTime,
+        this.root.state.options.times.lastTime
+      );
+      if (yearsCount === 1) {
+        for (let formatName of formatNames) {
+          if (this.root.state.options.calendar.year.maxWidths[formatName] + additionalSpace <= fullWidth) {
+            return {
+              count: 1,
+              type: formatName
+            };
+          }
+        }
+      }
+      for (let years = yearsCount; years > 1; years = Math.ceil(years / 2)) {
+        for (let formatName of formatNames) {
+          if (
+            (this.root.state.options.calendar.year.maxWidths[formatName] + additionalSpace) * years <= fullWidth &&
+            years > 1
+          ) {
+            return {
+              count: years,
               type: formatName
             };
           }
@@ -3580,6 +3760,7 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
           textWidth = this.root.state.options.calendar.day.widths[dayIndex][daysCount.type];
         }
         let x = steps[dayIndex].offset.px;
+        const label = this.root.state.options.calendar.day.format[daysCount.type](date.locale(localeName));
         days.push({
           index: dayIndex,
           key: steps[dayIndex].time + 'd',
@@ -3588,10 +3769,84 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
           width: dayWidthPx,
           textWidth,
           height: this.root.state.options.calendar.day.height,
-          label: this.root.state.options.calendar.day.format[daysCount.type](date.locale(localeName))
+          label
         });
       }
       return days.map(item => ({
+        key: item.key,
+        children: [item]
+      }));
+    },
+
+    /**
+     * Generate weeks
+     *
+     * @returns {array}
+     */
+    generateWeeks() {
+      let weeks = [];
+      if (!this.root.state.options.calendar.week.display) {
+        return weeks;
+      }
+      const weeksCount = this.howManyWeeksFit();
+      if (weeksCount.count === 0) {
+        return weeks;
+      }
+      const steps = this.root.state.options.times.steps;
+      const localeName = this.root.state.options.locale.name;
+      let formatNames = Object.keys(this.root.state.options.calendar.week.format);
+      let currentDate = dayjs_min_default()(this.root.state.options.times.firstTime);
+      for (let weekIndex = 0; weekIndex < weeksCount.count; weekIndex++) {
+        let weekWidth = 0;
+        let weekOffset = Number.MAX_SAFE_INTEGER;
+        let finalDate = dayjs_min_default()(currentDate)
+          .add(1, 'week')
+          .startOf('week');
+        if (finalDate.valueOf() > this.root.state.options.times.lastTime) {
+          finalDate = dayjs_min_default()(this.root.state.options.times.lastTime);
+        }
+        // we must find first and last step to get the offsets / widths
+        for (let step = 0, len = this.root.state.options.times.steps.length; step < len; step++) {
+          let currentStep = this.root.state.options.times.steps[step];
+          if (currentStep.time >= currentDate.valueOf() && currentStep.time < finalDate.valueOf()) {
+            weekWidth += currentStep.width.px;
+            if (currentStep.offset.px < weekOffset) {
+              weekOffset = currentStep.offset.px;
+            }
+          }
+        }
+        let label = '';
+        let choosenFormatName;
+        for (let formatName of formatNames) {
+          if (this.root.state.options.calendar.week.maxWidths[formatName] + 2 <= weekWidth) {
+            const formatFunction = this.root.state.options.calendar.week.format[formatName];
+            const dateLocal = currentDate.locale(localeName);
+            label = formatFunction(dateLocal);
+            choosenFormatName = formatName;
+          }
+        }
+        let textWidth = 0;
+        if (typeof this.root.state.options.calendar.week.widths[weekIndex] !== 'undefined') {
+          textWidth = this.root.state.options.calendar.week.widths[weekIndex][choosenFormatName];
+        }
+        let x = weekOffset;
+        weeks.push({
+          index: weekIndex,
+          key: weekIndex + 'm',
+          x,
+          y: 0,
+          width: weekWidth,
+          textWidth,
+          choosenFormatName,
+          height: this.root.state.options.calendar.week.height,
+          label
+        });
+        currentDate = currentDate.add(1, 'week').startOf('week');
+        if (currentDate.valueOf() > this.root.state.options.times.lastTime) {
+          currentDate = dayjs_min_default()(this.root.state.options.times.lastTime);
+        }
+      }
+      return weeks.map(item => ({
         key: item.key,
         children: [item]
       }));
@@ -3670,11 +3925,157 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
     },
 
     /**
+     * Generate quarters
+     *
+     * @returns {array}
+     */
+    generateQuarters() {
+      let quarters = [];
+      if (!this.root.state.options.calendar.quarter.display) {
+        return quarters;
+      }
+      const quartersCount = this.howManyQuartersFit();
+      if (quartersCount.count === 0) {
+        return quarters;
+      }
+      const steps = this.root.state.options.times.steps;
+      const localeName = this.root.state.options.locale.name;
+      let formatNames = Object.keys(this.root.state.options.calendar.quarter.format);
+      let currentDate = dayjs_min_default()(this.root.state.options.times.firstTime);
+      for (let quarterIndex = 0; quarterIndex < quartersCount.count; quarterIndex++) {
+        let quarterWidth = 0;
+        let quarterOffset = Number.MAX_SAFE_INTEGER;
+        let finalDate = dayjs_min_default()(currentDate)
+          .add(1, 'quarter')
+          .startOf('quarter');
+        if (finalDate.valueOf() > this.root.state.options.times.lastTime) {
+          finalDate = dayjs_min_default()(this.root.state.options.times.lastTime);
+        }
+        // we must find first and last step to get the offsets / widths
+        for (let step = 0, len = this.root.state.options.times.steps.length; step < len; step++) {
+          let currentStep = this.root.state.options.times.steps[step];
+          if (currentStep.time >= currentDate.valueOf() && currentStep.time < finalDate.valueOf()) {
+            quarterWidth += currentStep.width.px;
+            if (currentStep.offset.px < quarterOffset) {
+              quarterOffset = currentStep.offset.px;
+            }
+          }
+        }
+        let label = '';
+        let choosenFormatName;
+        for (let formatName of formatNames) {
+          if (this.root.state.options.calendar.quarter.maxWidths[formatName] + 2 <= quarterWidth) {
+            const format = this.root.state.options.calendar.quarter.format[formatName];
+            const day = currentDate.locale(localeName);
+            label = format(day);
+            choosenFormatName = formatName;
+          }
+        }
+        let textWidth = 0;
+        if (typeof this.root.state.options.calendar.quarter.widths[quarterIndex] !== 'undefined') {
+          textWidth = this.root.state.options.calendar.quarter.widths[quarterIndex][choosenFormatName];
+        }
+        let x = quarterOffset;
+        quarters.push({
+          index: quarterIndex,
+          key: quarterIndex + 'm',
+          x,
+          y: 0,
+          width: quarterWidth,
+          textWidth,
+          choosenFormatName,
+          height: this.root.state.options.calendar.quarter.height,
+          label
+        });
+        currentDate = currentDate.add(1, 'quarter').startOf('quarter');
+        if (currentDate.valueOf() > this.root.state.options.times.lastTime) {
+          currentDate = dayjs_min_default()(this.root.state.options.times.lastTime);
+        }
+      }
+      return quarters.map(item => ({
+        key: item.key,
+        children: [item]
+      }));
+    },
+
+    /**
+     * Generate years
+     *
+     * @returns {array}
+     */
+    generateYears() {
+      let years = [];
+      if (!this.root.state.options.calendar.year.display) {
+        return years;
+      }
+      const yearsCount = this.howManyYearsFit();
+      if (yearsCount.count === 0) {
+        return years;
+      }
+      const steps = this.root.state.options.times.steps;
+      const localeName = this.root.state.options.locale.name;
+      let formatNames = Object.keys(this.root.state.options.calendar.year.format);
+      let currentDate = dayjs_min_default()(this.root.state.options.times.firstTime);
+      for (let yearIndex = 0; yearIndex < yearsCount.count; yearIndex++) {
+        let yearWidth = 0;
+        let yearOffset = Number.MAX_SAFE_INTEGER;
+        let finalDate = dayjs_min_default()(currentDate)
+          .add(1, 'year')
+          .startOf('year');
+        if (finalDate.valueOf() > this.root.state.options.times.lastTime) {
+          finalDate = dayjs_min_default()(this.root.state.options.times.lastTime);
+        }
+        // we must find first and last step to get the offsets / widths
+        for (let step = 0, len = this.root.state.options.times.steps.length; step < len; step++) {
+          let currentStep = this.root.state.options.times.steps[step];
+          if (currentStep.time >= currentDate.valueOf() && currentStep.time < finalDate.valueOf()) {
+            yearWidth += currentStep.width.px;
+            if (currentStep.offset.px < yearOffset) {
+              yearOffset = currentStep.offset.px;
+            }
+          }
+        }
+        let label = '';
+        let choosenFormatName;
+        for (let formatName of formatNames) {
+          if (this.root.state.options.calendar.year.maxWidths[formatName] + 2 <= yearWidth) {
+            label = this.root.state.options.calendar.year.format[formatName](currentDate.locale(localeName));
+            choosenFormatName = formatName;
+          }
+        }
+        let textWidth = 0;
+        if (typeof this.root.state.options.calendar.year.widths[yearIndex] !== 'undefined') {
+          textWidth = this.root.state.options.calendar.year.widths[yearIndex][choosenFormatName];
+        }
+        let x = yearOffset;
+        years.push({
+          index: yearIndex,
+          key: yearIndex + 'm',
+          x,
+          y: 0,
+          width: yearWidth,
+          textWidth,
+          choosenFormatName,
+          height: this.root.state.options.calendar.year.height,
+          label
+        });
+        currentDate = currentDate.add(1, 'year').startOf('year');
+        if (currentDate.valueOf() > this.root.state.options.times.lastTime) {
+          currentDate = dayjs_min_default()(this.root.state.options.times.lastTime);
+        }
+      }
+      return years.map(item => ({
+        key: item.key,
+        children: [item]
+      }));
+    },
+
+    /**
      * Sum all calendar rows height and return result
      *
      * @returns {int}
      */
-    calculateCalendarDimensions({ hours, days, months }) {
+    calculateCalendarDimensions({ hours, days, weeks, months, quarters, years }) {
       let height = 0;
       if (this.root.state.options.calendar.hour.display && hours.length > 0) {
         height += this.root.state.options.calendar.hour.height;
@@ -3682,8 +4083,17 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
       if (this.root.state.options.calendar.day.display && days.length > 0) {
         height += this.root.state.options.calendar.day.height;
       }
+      if (this.root.state.options.calendar.week.display && weeks.length > 0) {
+        height += this.root.state.options.calendar.week.height;
+      }
       if (this.root.state.options.calendar.month.display && months.length > 0) {
         height += this.root.state.options.calendar.month.height;
+      }
+      if (this.root.state.options.calendar.quarter.display && quarters.length > 0) {
+        height += this.root.state.options.calendar.quarter.height;
+      }
+      if (this.root.state.options.calendar.year.display && years.length > 0) {
+        height += this.root.state.options.calendar.year.height;
       }
       this.root.state.options.calendar.height = height;
     }
@@ -3693,8 +4103,11 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
     dates() {
       const hours = this.generateHours();
       const days = this.generateDays();
+      const weeks = this.generateWeeks();
       const months = this.generateMonths();
-      const allDates = { hours, days, months };
+      const quarters = this.generateQuarters();
+      const years = this.generateYears();
+      const allDates = { hours, days, weeks, months, quarters, years };
       this.calculateCalendarDimensions(allDates);
       return allDates;
     }
@@ -4085,12 +4498,14 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
             attrs: { points: _vm.getPoints }
           }),
           _vm._v(" "),
-          _c("progress-bar", {
-            attrs: {
-              task: _vm.task,
-              "clip-path": "url(#" + _vm.clipPathId + ")"
-            }
-          })
+          !_vm.root.state.options.chart.progress.showOnActualTask
+            ? _c("progress-bar", {
+                attrs: {
+                  task: _vm.task,
+                  "clip-path": "url(#" + _vm.clipPathId + ")"
+                }
+              })
+            : _vm._e()
         ],
         1
       ),
@@ -4438,9 +4853,9 @@ var ProgressBarvue_type_template_id_4bc39355_render = function() {
                 _vm.task.style["chart-row-progress-bar-pattern"]
               ),
               attrs: {
-                x: _vm.getProgressWidth,
+                x: 0,
                 y: "0",
-                width: 100 - _vm.task.progress + "%",
+                width: _vm.getProgressWidth,
                 height: "100%"
               }
             }),
@@ -4553,7 +4968,12 @@ ProgressBarvue_type_template_id_4bc39355_render._withStripped = true
      * @returns {string}
      */
     getLinePoints() {
-      const start = (this.task.width / 100) * this.task.progress;
+      let start;
+      if (this.root.state.options.chart.progress.showOnActualTask) {
+        start = (this.task.widthE / 100) * this.task.progress;
+      } else {
+        start = (this.task.width / 100) * this.task.progress;
+      }
       return `M ${start} 0 L ${start} ${this.task.height}`;
     },
 
@@ -4864,8 +5284,8 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
             _vm.task.style["chart-row-bar"]
           ),
           attrs: {
-            x: _vm.task.xE,
-            y: _vm.task.yE,
+            x: _vm.task.xP,
+            y: _vm.task.yP,
             width: _vm.task.widthE,
             height: _vm.task.height,
             viewBox: "0 0 " + _vm.task.widthE + " " + _vm.task.height,
@@ -4925,8 +5345,18 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
               _vm.task.style["chart-row-bar-polygon-estimated"]
             ),
             attrs: { points: _vm.getPoints }
-          })
-        ]
+          }),
+          _vm._v(" "),
+          _vm.root.state.options.chart.progress.showOnActualTask
+            ? _c("progress-bar", {
+                attrs: {
+                  task: _vm.task,
+                  "clip-path": "url(#" + _vm.clipPathId + ")"
+                }
+              })
+            : _vm._e()
+        ],
+        1
       )
     ]
   )
@@ -4995,10 +5425,15 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
 //
 //
 //
+//
+
 
 
 /* harmony default export */ var TaskPlannedvue_type_script_lang_js_ = ({
   name: 'Task',
+  components: {
+    ProgressBar: ProgressBar
+  },
   inject: ['root'],
   props: ['task'],
   mixins: [Task_mixin],
@@ -6365,7 +6800,8 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       'user-select': 'none',
       overflow: 'hidden',
       'max-width': '100%',
-      'border-right': '1px solid #eee'
+      'border-right': '1px solid #eee',
+      'text-align': 'center'
     },
     'chart-graph-container': {
       'user-select': 'none',
@@ -6468,6 +6904,18 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
 // EXTERNAL MODULE: ./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js
 var ResizeObserver_es = __webpack_require__(3);
 
+// EXTERNAL MODULE: ./node_modules/dayjs/plugin/weekOfYear.js
+var weekOfYear = __webpack_require__(4);
+var weekOfYear_default = /*#__PURE__*/__webpack_require__.n(weekOfYear);
+
+// EXTERNAL MODULE: ./node_modules/dayjs/plugin/quarterOfYear.js
+var quarterOfYear = __webpack_require__(5);
+var quarterOfYear_default = /*#__PURE__*/__webpack_require__.n(quarterOfYear);
+
+// EXTERNAL MODULE: ./node_modules/dayjs/plugin/advancedFormat.js
+var advancedFormat = __webpack_require__(6);
+var advancedFormat_default = /*#__PURE__*/__webpack_require__.n(advancedFormat);
+
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/GanttElastic.vue?vue&type=script&lang=js&
 //
 //
@@ -6491,6 +6939,13 @@ var ResizeObserver_es = __webpack_require__(3);
 
 
 
+
+
+dayjs_min_default.a.extend(weekOfYear_default.a);
+
+dayjs_min_default.a.extend(quarterOfYear_default.a);
+
+dayjs_min_default.a.extend(advancedFormat_default.a);
 
 const ctx = document.createElement('canvas').getContext('2d');
 let VueInst = external_Vue_default.a;
@@ -6594,7 +7049,8 @@ function getOptions(userOptions) {
         width: 20, //*
         height: 6, //*
         pattern: true,
-        bar: false
+        bar: false,
+        showOnActualTask: true
       },
       text: {
         offset: 4, //*
@@ -6688,6 +7144,17 @@ function getOptions(userOptions) {
           }
         }
       },
+      week: {
+        height: 20, //*
+        display: true, //*
+        widths: [],
+        maxWidths: { long: 0 },
+        format: {
+          long(date) {
+            return date.format('wo');
+          }
+        }
+      },
       month: {
         height: 20, //*
         display: true, //*
@@ -6699,10 +7166,35 @@ function getOptions(userOptions) {
             return date.format('MM');
           },
           medium(date) {
-            return date.format("MMM 'YY");
+            return date.format("MMM");
           },
           long(date) {
-            return date.format('MMMM YYYY');
+            return date.format('MMMM');
+          }
+        }
+      },
+      quarter: {
+        height: 20,
+        display: true,
+        widths: [],
+        maxWidths: { short: 0, long: 160 },
+        format: {
+          short(date) {
+            return date.format('Q');
+          },
+          long(date) {
+            return date.format('Q Do YYYY'); // ad hoc - localization
+          }
+        }
+      },
+      year: {
+        height: 20,
+        display: true,
+        widths: [],
+        maxWidths: { long: 0 },
+        format: {
+          long(date) {
+            return date.format('YYYY');
           }
         }
       }
@@ -7042,13 +7534,24 @@ const GanttElastic = {
         if (typeof task.startTime === 'undefined') {
           task.startTime = dayjs_min_default()(task.start).valueOf();
         }
+        if (typeof task.startTimePlanned === 'undefined') {
+          task.startTimePlanned = dayjs_min_default()(task.startPlanned).valueOf();
+        }
         if (typeof task.endTime === 'undefined' && task.hasOwnProperty('end')) {
           task.endTime = dayjs_min_default()(task.end).valueOf();
         } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('duration')) {
           task.endTime = task.startTime + task.duration;
         }
+        if (typeof task.endTimePlanned === 'undefined' && task.hasOwnProperty('endPlanned')) {
+          task.endTimePlanned = dayjs_min_default()(task.end).valueOf();
+        } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('durationPlanned')) {
+          task.endTimePlanned = task.startTimePlanned + task.durationPlanned;
+        }
         if (typeof task.duration === 'undefined' && task.hasOwnProperty('endTime')) {
           task.duration = task.endTime - task.startTime;
+        }
+        if (typeof task.durationPlanned === 'undefined' && task.hasOwnProperty('endTimePlanned')) {
+          task.durationPlanned = task.endTimePlanned - task.startTimePlanned;
         }
       }
       return tasks;
@@ -7637,7 +8140,7 @@ const GanttElastic = {
       for (
         let currentDate = dayjs_min_default()(this.state.options.times.firstTime)
           .add(1, this.state.options.times.stepDuration)
-          .startOf('day');
+          .startOf(this.state.options.times.stepDuration);
         currentDate.valueOf() <= lastMs;
         currentDate = currentDate.add(1, this.state.options.times.stepDuration).startOf('day')
       ) {
@@ -7763,6 +8266,87 @@ const GanttElastic = {
         previousMonth = currentMonth.clone();
       }
       return monthsCount;
+    },
+
+    /**
+     * Weeks count
+     *
+     * @description Returns number of different weeks in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different weeks count
+     */
+    weeksCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentWeek = dayjs_min_default()(fromTime);
+      let previousWeek = currentWeek.clone();
+      let weekCount = 1;
+      while (currentWeek.valueOf() <= toTime) {
+        currentWeek = currentWeek.add(1, 'day');
+        if (previousWeek.week() !== currentWeek.week()) {
+          weekCount++;
+        }
+        previousWeek = currentWeek.clone();
+      }
+      return weekCount;
+    },
+
+    /**
+     * Quarters count
+     *
+     * @description Returns number of different quarters in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different quarters count
+     */
+    quartersCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentQuarter = dayjs_min_default()(fromTime);
+      let previousQuarter = currentQuarter.clone();
+      let quarterCount = 1;
+      while (currentQuarter.valueOf() <= toTime) {
+        currentQuarter = currentQuarter.add(1, 'day');
+        if (previousQuarter.quarter() !== currentQuarter.quarter()) {
+          quarterCount++;
+        }
+        previousQuarter = currentQuarter.clone();
+      }
+      return quarterCount;
+    },
+
+    /**
+     * Years count
+     *
+     * @description Returns number of different years in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different years count
+     */
+    yearsCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentYear = dayjs_min_default()(fromTime);
+      let previousYear = currentYear.clone();
+      let yearCount = 1;
+      while (currentYear.valueOf() <= toTime) {
+        currentYear = currentYear.add(1, 'day');
+        if (previousYear.year() !== currentYear.year()) {
+          yearCount++;
+        }
+        previousYear = currentYear.clone();
+      }
+      return yearCount;
     },
 
     /**
@@ -7900,20 +8484,20 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
+        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
+        task.height = task.isPlanned ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
-        // parameters of estimated task
-        task.xE = this.timeToPixelOffsetX(task.startPlanned);
-        task.yE = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
+        // parameters of planned task view
+        task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
+        task.yP = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
         task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.widthE < 0) {
           task.widthE = 0;
@@ -8080,7 +8664,7 @@ const GanttElastic = {
 // CONCATENATED MODULE: ./src/GanttElastic.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_GanttElasticvue_type_script_lang_js_ = (GanttElasticvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./src/GanttElastic.vue?vue&type=style&index=0&lang=css&
-var GanttElasticvue_type_style_index_0_lang_css_ = __webpack_require__(5);
+var GanttElasticvue_type_style_index_0_lang_css_ = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/GanttElastic.vue
 
@@ -8108,7 +8692,7 @@ GanttElastic_component.options.__file = "src/GanttElastic.vue"
 /* harmony default export */ var src_GanttElastic = __webpack_exports__["default"] = (GanttElastic_component.exports);
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
