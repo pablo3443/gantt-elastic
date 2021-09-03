@@ -2690,7 +2690,7 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                               attrs: { task: task }
                             }),
                             _vm._v(" "),
-                            task.isEstimated
+                            task.isPlanned
                               ? _c("task-planned", { attrs: { task: task } })
                               : _vm._e()
                           ],
@@ -4864,8 +4864,8 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
             _vm.task.style["chart-row-bar"]
           ),
           attrs: {
-            x: _vm.task.xE,
-            y: _vm.task.yE,
+            x: _vm.task.xP,
+            y: _vm.task.yP,
             width: _vm.task.widthE,
             height: _vm.task.height,
             viewBox: "0 0 " + _vm.task.widthE + " " + _vm.task.height,
@@ -7042,13 +7042,24 @@ const GanttElastic = {
         if (typeof task.startTime === 'undefined') {
           task.startTime = dayjs_min_default()(task.start).valueOf();
         }
+        if (typeof task.startTimePlanned === 'undefined') {
+          task.startTimePlanned = dayjs_min_default()(task.startPlanned).valueOf();
+        }
         if (typeof task.endTime === 'undefined' && task.hasOwnProperty('end')) {
           task.endTime = dayjs_min_default()(task.end).valueOf();
         } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('duration')) {
           task.endTime = task.startTime + task.duration;
         }
+        if (typeof task.endTimePlanned === 'undefined' && task.hasOwnProperty('endPlanned')) {
+          task.endTimePlanned = dayjs_min_default()(task.end).valueOf();
+        } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('durationPlanned')) {
+          task.endTimePlanned = task.startTimePlanned + task.durationPlanned;
+        }
         if (typeof task.duration === 'undefined' && task.hasOwnProperty('endTime')) {
           task.duration = task.endTime - task.startTime;
+        }
+        if (typeof task.durationPlanned === 'undefined' && task.hasOwnProperty('endTimePlanned')) {
+          task.durationPlanned = task.endTimePlanned - task.startTimePlanned;
         }
       }
       return tasks;
@@ -7637,7 +7648,7 @@ const GanttElastic = {
       for (
         let currentDate = dayjs_min_default()(this.state.options.times.firstTime)
           .add(1, this.state.options.times.stepDuration)
-          .startOf('day');
+          .startOf(this.state.options.times.stepDuration);
         currentDate.valueOf() <= lastMs;
         currentDate = currentDate.add(1, this.state.options.times.stepDuration).startOf('day')
       ) {
@@ -7900,20 +7911,20 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
+        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
+        task.height = task.isPlanned ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
-        // parameters of estimated task
-        task.xE = this.timeToPixelOffsetX(task.startPlanned);
-        task.yE = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
+        // parameters of planned task view
+        task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
+        task.yP = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
         task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.widthE < 0) {
           task.widthE = 0;

@@ -571,13 +571,24 @@ const GanttElastic = {
         if (typeof task.startTime === 'undefined') {
           task.startTime = dayjs(task.start).valueOf();
         }
+        if (typeof task.startTimePlanned === 'undefined') {
+          task.startTimePlanned = dayjs(task.startPlanned).valueOf();
+        }
         if (typeof task.endTime === 'undefined' && task.hasOwnProperty('end')) {
           task.endTime = dayjs(task.end).valueOf();
         } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('duration')) {
           task.endTime = task.startTime + task.duration;
         }
+        if (typeof task.endTimePlanned === 'undefined' && task.hasOwnProperty('endPlanned')) {
+          task.endTimePlanned = dayjs(task.end).valueOf();
+        } else if (typeof task.endTime === 'undefined' && task.hasOwnProperty('durationPlanned')) {
+          task.endTimePlanned = task.startTimePlanned + task.durationPlanned;
+        }
         if (typeof task.duration === 'undefined' && task.hasOwnProperty('endTime')) {
           task.duration = task.endTime - task.startTime;
+        }
+        if (typeof task.durationPlanned === 'undefined' && task.hasOwnProperty('endTimePlanned')) {
+          task.durationPlanned = task.endTimePlanned - task.startTimePlanned;
         }
       }
       return tasks;
@@ -1166,7 +1177,7 @@ const GanttElastic = {
       for (
         let currentDate = dayjs(this.state.options.times.firstTime)
           .add(1, this.state.options.times.stepDuration)
-          .startOf('day');
+          .startOf(this.state.options.times.stepDuration);
         currentDate.valueOf() <= lastMs;
         currentDate = currentDate.add(1, this.state.options.times.stepDuration).startOf('day')
       ) {
@@ -1429,20 +1440,20 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isEstimated = task.startPlanned > 0 && task.durationPlanned > 0;
+        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isEstimated ? this.state.options.row.height / 2 : this.state.options.row.height;
+        task.height = task.isPlanned ? this.state.options.row.height / 2 : this.state.options.row.height;
         task.x = this.timeToPixelOffsetX(task.startTime);
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
-        // parameters of estimated task
-        task.xE = this.timeToPixelOffsetX(task.startPlanned);
-        task.yE = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
+        // parameters of planned task view
+        task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
+        task.yP = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
         task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.widthE < 0) {
           task.widthE = 0;
