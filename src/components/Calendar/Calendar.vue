@@ -419,7 +419,6 @@ export default {
             const formatFunction = this.root.state.options.calendar.week.format[formatName];
             const dateLocal = currentDate.locale(localeName);
             label = formatFunction(dateLocal); // WW
-            console.log(formatFunction, dateLocal, label);
             choosenFormatName = formatName; // 'short'
           }
         }
@@ -566,7 +565,6 @@ export default {
             const format = this.root.state.options.calendar.quarter.format[formatName];
             const day = currentDate.locale(localeName);
             label = format(day);
-            console.log('date=>date.format("Q кв.")', day, label);
             choosenFormatName = formatName;
           }
         }

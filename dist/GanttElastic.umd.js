@@ -1125,7 +1125,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n[class^='gantt-elastic'],\n[class*=' gantt-elastic'] {\n  box-sizing: border-box;\n}\n.gantt-elastic__main-view svg {\n  display: block;\n}\n.gantt-elastic__grid-horizontal-line,\n.gantt-elastic__grid-vertical-line {\n  stroke: #a0a0a0;\n  stroke-width: 1;\n}\nforeignObject > * {\n  margin: 0px;\n}\n.gantt-elastic .p-2 {\n  padding: 10rem;\n}\n.gantt-elastic__main-view-main-container,\n.gantt-elastic__main-view-container {\n  overflow: hidden;\n  max-width: 100%;\n}\n.gantt-elastic__task-list-header-column:last-of-type {\n  border-right: 1px solid #00000050;\n}\n.gantt-elastic__task-list-item:last-of-type {\n  border-bottom: 1px solid #00000050;\n}\n.gantt-elastic__task-list-item-value-wrapper:hover {\n  overflow: visible !important;\n}\n.gantt-elastic__task-list-item-value-wrapper:hover > .gantt-elastic__task-list-item-value-container {\n  position: relative;\n  overflow: visible !important;\n}\n.gantt-elastic__task-list-item-value-wrapper:hover > .gantt-elastic__task-list-item-value {\n  position: absolute;\n}\n", ""]);
+exports.push([module.i, "\n[class^='gantt-elastic'],\r\n[class*=' gantt-elastic'] {\r\n  box-sizing: border-box;\n}\n.gantt-elastic__main-view svg {\r\n  display: block;\n}\n.gantt-elastic__grid-horizontal-line,\r\n.gantt-elastic__grid-vertical-line {\r\n  stroke: #a0a0a0;\r\n  stroke-width: 1;\n}\nforeignObject > * {\r\n  margin: 0px;\n}\n.gantt-elastic .p-2 {\r\n  padding: 10rem;\n}\n.gantt-elastic__main-view-main-container,\r\n.gantt-elastic__main-view-container {\r\n  overflow: hidden;\r\n  max-width: 100%;\n}\n.gantt-elastic__task-list-header-column:last-of-type {\r\n  border-right: 1px solid #00000050;\n}\n.gantt-elastic__task-list-item:last-of-type {\r\n  border-bottom: 1px solid #00000050;\n}\n.gantt-elastic__task-list-item-value-wrapper:hover {\r\n  overflow: visible !important;\n}\n.gantt-elastic__task-list-item-value-wrapper:hover > .gantt-elastic__task-list-item-value-container {\r\n  position: relative;\r\n  overflow: visible !important;\n}\n.gantt-elastic__task-list-item-value-wrapper:hover > .gantt-elastic__task-list-item-value {\r\n  position: absolute;\n}\r\n", ""]);
 
 // exports
 
@@ -3822,7 +3822,6 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
             const formatFunction = this.root.state.options.calendar.week.format[formatName];
             const dateLocal = currentDate.locale(localeName);
             label = formatFunction(dateLocal); // WW
-            console.log(formatFunction, dateLocal, label);
             choosenFormatName = formatName; // 'short'
           }
         }
@@ -3969,7 +3968,6 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
             const format = this.root.state.options.calendar.quarter.format[formatName];
             const day = currentDate.locale(localeName);
             label = format(day);
-            console.log('date=>date.format("Q кв.")', day, label);
             choosenFormatName = formatName;
           }
         }
