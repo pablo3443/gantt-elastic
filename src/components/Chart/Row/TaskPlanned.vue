@@ -18,8 +18,8 @@
     <svg
       class="gantt-elastic__chart-row-bar gantt-elastic__chart-row-task"
       :style="{ ...root.style['chart-row-bar'], ...root.style['chart-row-task'], ...task.style['chart-row-bar'] }"
-      :x="task.xP"
-      :y="task.yP"
+      :x="task.xE"
+      :y="task.yE"
       :width="task.widthE"
       :height="task.height"
       :viewBox="`0 0 ${task.widthE} ${task.height}`"
