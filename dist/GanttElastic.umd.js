@@ -4853,7 +4853,7 @@ var ProgressBarvue_type_template_id_4bc39355_render = function() {
                 _vm.task.style["chart-row-progress-bar-pattern"]
               ),
               attrs: {
-                x: 0,
+                x: "0",
                 y: "0",
                 width: _vm.getProgressWidth,
                 height: "100%"

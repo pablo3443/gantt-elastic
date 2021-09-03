@@ -41,7 +41,7 @@
       <rect
         class="gantt-elastic__chart-row-progress-bar-pattern"
         :style="{ ...root.style['chart-row-progress-bar-pattern'], ...task.style['chart-row-progress-bar-pattern'] }"
-        :x="0"
+        x="0"
         y="0"
         :width="getProgressWidth"
         height="100%"
