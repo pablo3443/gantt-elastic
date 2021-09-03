@@ -5345,8 +5345,18 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
               _vm.task.style["chart-row-bar-polygon-estimated"]
             ),
             attrs: { points: _vm.getPoints }
-          })
-        ]
+          }),
+          _vm._v(" "),
+          _vm.root.state.options.chart.progress.showOnActualTask
+            ? _c("progress-bar", {
+                attrs: {
+                  task: _vm.task,
+                  "clip-path": "url(#" + _vm.clipPathId + ")"
+                }
+              })
+            : _vm._e()
+        ],
+        1
       )
     ]
   )
@@ -5415,10 +5425,15 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
 //
 //
 //
+//
+
 
 
 /* harmony default export */ var TaskPlannedvue_type_script_lang_js_ = ({
   name: 'Task',
+  components: {
+    ProgressBar: ProgressBar
+  },
   inject: ['root'],
   props: ['task'],
   mixins: [Task_mixin],
