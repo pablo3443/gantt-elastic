@@ -4853,9 +4853,13 @@ var ProgressBarvue_type_template_id_4bc39355_render = function() {
                 _vm.task.style["chart-row-progress-bar-pattern"]
               ),
               attrs: {
-                x: "0",
+                x: !_vm.root.state.options.chart.progress.showOnActualTask
+                  ? _vm.getProgressWidth
+                  : 0,
                 y: "0",
-                width: _vm.getProgressWidth,
+                width: !_vm.root.state.options.chart.progress.showOnActualTask
+                  ? 100 - _vm.task.progress + "%"
+                  : _vm.getProgressWidth,
                 height: "100%"
               }
             }),
