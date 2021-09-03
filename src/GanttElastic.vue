@@ -21,6 +21,13 @@ import MainView from './components/MainView.vue';
 import getStyle from './style.js';
 import ResizeObserver from 'resize-observer-polyfill';
 
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+dayjs.extend(weekOfYear);
+import  quarterOfYear from 'dayjs/plugin/quarterOfYear';
+dayjs.extend(quarterOfYear);
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+dayjs.extend(advancedFormat);
+
 const ctx = document.createElement('canvas').getContext('2d');
 let VueInst = VueInstance;
 function initVue() {
@@ -123,7 +130,8 @@ function getOptions(userOptions) {
         width: 20, //*
         height: 6, //*
         pattern: true,
-        bar: false
+        bar: false,
+        showOnActualTask: true
       },
       text: {
         offset: 4, //*
@@ -217,6 +225,17 @@ function getOptions(userOptions) {
           }
         }
       },
+      week: {
+        height: 20, //*
+        display: true, //*
+        widths: [],
+        maxWidths: { long: 0 },
+        format: {
+          long(date) {
+            return date.format('wo');
+          }
+        }
+      },
       month: {
         height: 20, //*
         display: true, //*
@@ -228,10 +247,35 @@ function getOptions(userOptions) {
             return date.format('MM');
           },
           medium(date) {
-            return date.format("MMM 'YY");
+            return date.format("MMM");
           },
           long(date) {
-            return date.format('MMMM YYYY');
+            return date.format('MMMM');
+          }
+        }
+      },
+      quarter: {
+        height: 20,
+        display: true,
+        widths: [],
+        maxWidths: { short: 0, long: 160 },
+        format: {
+          short(date) {
+            return date.format('Q');
+          },
+          long(date) {
+            return date.format('Q Do YYYY'); // ad hoc - localization
+          }
+        }
+      },
+      year: {
+        height: 20,
+        display: true,
+        widths: [],
+        maxWidths: { long: 0 },
+        format: {
+          long(date) {
+            return date.format('YYYY');
           }
         }
       }
@@ -1303,6 +1347,87 @@ const GanttElastic = {
         previousMonth = currentMonth.clone();
       }
       return monthsCount;
+    },
+
+    /**
+     * Weeks count
+     *
+     * @description Returns number of different weeks in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different weeks count
+     */
+    weeksCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentWeek = dayjs(fromTime);
+      let previousWeek = currentWeek.clone();
+      let weekCount = 1;
+      while (currentWeek.valueOf() <= toTime) {
+        currentWeek = currentWeek.add(1, 'day');
+        if (previousWeek.week() !== currentWeek.week()) {
+          weekCount++;
+        }
+        previousWeek = currentWeek.clone();
+      }
+      return weekCount;
+    },
+
+    /**
+     * Quarters count
+     *
+     * @description Returns number of different quarters in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different quarters count
+     */
+    quartersCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentQuarter = dayjs(fromTime);
+      let previousQuarter = currentQuarter.clone();
+      let quarterCount = 1;
+      while (currentQuarter.valueOf() <= toTime) {
+        currentQuarter = currentQuarter.add(1, 'day');
+        if (previousQuarter.quarter() !== currentQuarter.quarter()) {
+          quarterCount++;
+        }
+        previousQuarter = currentQuarter.clone();
+      }
+      return quarterCount;
+    },
+
+    /**
+     * Years count
+     *
+     * @description Returns number of different years in specified time range
+     *
+     * @param {number} fromTime - date in ms
+     * @param {number} toTime - date in ms
+     *
+     * @returns {number} different years count
+     */
+    yearsCount(fromTime, toTime) {
+      if (fromTime > toTime) {
+        return 0;
+      }
+      let currentYear = dayjs(fromTime);
+      let previousYear = currentYear.clone();
+      let yearCount = 1;
+      while (currentYear.valueOf() <= toTime) {
+        currentYear = currentYear.add(1, 'day');
+        if (previousYear.year() !== currentYear.year()) {
+          yearCount++;
+        }
+        previousYear = currentYear.clone();
+      }
+      return yearCount;
     },
 
     /**
