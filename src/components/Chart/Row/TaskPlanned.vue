@@ -20,9 +20,9 @@
       :style="{ ...root.style['chart-row-bar'], ...root.style['chart-row-task'], ...task.style['chart-row-bar'] }"
       :x="task.xP"
       :y="task.yP"
-      :width="task.widthE"
+      :width="task.widthP"
       :height="task.height"
-      :viewBox="`0 0 ${task.widthE} ${task.height}`"
+      :viewBox="`0 0 ${task.widthP} ${task.height}`"
       @click="emitEvent('click', $event)"
       @mouseenter="emitEvent('mouseenter', $event)"
       @mouseover="emitEvent('mouseover', $event)"
@@ -51,7 +51,6 @@
         }"
         :points="getPoints"
       ></polygon>
-      <progress-bar v-if="root.state.options.chart.progress.showOnActualTask" :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
   </g>
 </template>
@@ -87,7 +86,7 @@ export default {
      */
     getPoints() {
       const task = this.task;
-      return `0,0 ${task.widthE},0 ${task.widthE},${task.height} 0,${task.height}`;
+      return `0,0 ${task.widthP},0 ${task.widthP},${task.height} 0,${task.height}`;
     }
   }
 };

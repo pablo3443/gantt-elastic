@@ -130,8 +130,7 @@ function getOptions(userOptions) {
         width: 20, //*
         height: 6, //*
         pattern: true,
-        bar: false,
-        showOnActualTask: true
+        bar: false
       },
       text: {
         offset: 4, //*
@@ -633,6 +632,12 @@ const GanttElastic = {
         }
         if (typeof task.durationPlanned === 'undefined' && task.hasOwnProperty('endTimePlanned')) {
           task.durationPlanned = task.endTimePlanned - task.startTimePlanned;
+        }
+        if (typeof task.offsetY === 'undefined') {
+          task.offsetY = 0;
+        }
+        if (typeof task.offsetYPlanned === 'undefined') {
+          task.offsetYPlanned = 0;
         }
       }
       return tasks;
@@ -1565,23 +1570,32 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isPlanned ? this.state.options.row.height / 2 : this.state.options.row.height;
-        task.x = this.timeToPixelOffsetX(task.startTime);
-        task.y =
-          (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
-          this.state.options.chart.grid.horizontal.gap;
-        // parameters of planned task view
-        task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
-        task.yP = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
-        task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
-        if (task.widthE < 0) {
-          task.widthE = 0;
+
+        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
+        if (task.isPlanned) {
+          task.height = this.state.options.row.height / 2;
+          task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
+          task.yP =
+            (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
+            this.state.options.chart.grid.horizontal.gap + task.offsetYPlanned;
+          // parameters of planned task view
+          task.x = this.timeToPixelOffsetX(task.startTime);
+          task.y = task.yP + task.height + task.offsetY - task.offsetYPlanned;
+          task.widthP = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
+          if (task.widthP < 0) {
+            task.widthP = 0;
+          }
+        } else {
+          task.height = this.state.options.row.height;
+          task.x = this.timeToPixelOffsetX(task.startTime);
+          task.y =
+            (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
+            this.state.options.chart.grid.horizontal.gap + task.offsetY;
         }
       }
       return visibleTasks;

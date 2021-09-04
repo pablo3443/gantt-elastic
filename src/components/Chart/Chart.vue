@@ -59,8 +59,8 @@
               :task="task"
               :key="task.id"
             >
-              <component :task="task" :is="task.type"></component>
               <task-planned :task="task" v-if="task.isPlanned"></task-planned>
+              <component :task="task" :is="task.type"></component>
             </g>
           </svg>
         </div>

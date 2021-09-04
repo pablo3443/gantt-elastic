@@ -65,10 +65,10 @@ export default {
       ) {
         return null;
       }
-      const startX = fromTask.x + fromTask.width;
-      const startY = fromTask.y + fromTask.height / 2;
-      const stopX = toTask.x;
-      const stopY = toTask.y + toTask.height / 2;
+      const startX = fromTask.isPlanned ? fromTask.xP + fromTask.widthP : fromTask.x + fromTask.width;
+      const startY = fromTask.isPlanned ? fromTask.yP + fromTask.height / 2 : fromTask.y + fromTask.height / 2;
+      const stopX = toTask.isPlanned ? toTask.xP : toTask.x;
+      const stopY = toTask.isPlanned ? toTask.yP + toTask.height / 2: toTask.y + toTask.height / 2;
       const distanceX = stopX - startX;
       let distanceY;
       let yMultiplier = 1;

@@ -2706,14 +2706,14 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                             attrs: { task: task }
                           },
                           [
+                            task.isPlanned
+                              ? _c("task-planned", { attrs: { task: task } })
+                              : _vm._e(),
+                            _vm._v(" "),
                             _c(task.type, {
                               tag: "component",
                               attrs: { task: task }
-                            }),
-                            _vm._v(" "),
-                            task.isPlanned
-                              ? _c("task-planned", { attrs: { task: task } })
-                              : _vm._e()
+                            })
                           ],
                           1
                         )
@@ -4279,10 +4279,10 @@ DependencyLinesvue_type_template_id_f1cbf6ba_render._withStripped = true
       ) {
         return null;
       }
-      const startX = fromTask.x + fromTask.width;
-      const startY = fromTask.y + fromTask.height / 2;
-      const stopX = toTask.x;
-      const stopY = toTask.y + toTask.height / 2;
+      const startX = fromTask.isPlanned ? fromTask.xP + fromTask.widthP : fromTask.x + fromTask.width;
+      const startY = fromTask.isPlanned ? fromTask.yP + fromTask.height / 2 : fromTask.y + fromTask.height / 2;
+      const stopX = toTask.isPlanned ? toTask.xP : toTask.x;
+      const stopY = toTask.isPlanned ? toTask.yP + toTask.height / 2: toTask.y + toTask.height / 2;
       const distanceX = stopX - startX;
       let distanceY;
       let yMultiplier = 1;
@@ -4498,14 +4498,12 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
             attrs: { points: _vm.getPoints }
           }),
           _vm._v(" "),
-          !_vm.root.state.options.chart.progress.showOnActualTask
-            ? _c("progress-bar", {
-                attrs: {
-                  task: _vm.task,
-                  "clip-path": "url(#" + _vm.clipPathId + ")"
-                }
-              })
-            : _vm._e()
+          _c("progress-bar", {
+            attrs: {
+              task: _vm.task,
+              "clip-path": "url(#" + _vm.clipPathId + ")"
+            }
+          })
         ],
         1
       ),
@@ -4853,13 +4851,9 @@ var ProgressBarvue_type_template_id_4bc39355_render = function() {
                 _vm.task.style["chart-row-progress-bar-pattern"]
               ),
               attrs: {
-                x: !_vm.root.state.options.chart.progress.showOnActualTask
-                  ? _vm.getProgressWidth
-                  : 0,
+                x: _vm.getProgressWidth,
                 y: "0",
-                width: !_vm.root.state.options.chart.progress.showOnActualTask
-                  ? 100 - _vm.task.progress + "%"
-                  : _vm.getProgressWidth,
+                width: 100 - _vm.task.progress + "%",
                 height: "100%"
               }
             }),
@@ -4972,12 +4966,7 @@ ProgressBarvue_type_template_id_4bc39355_render._withStripped = true
      * @returns {string}
      */
     getLinePoints() {
-      let start;
-      if (this.root.state.options.chart.progress.showOnActualTask) {
-        start = (this.task.widthE / 100) * this.task.progress;
-      } else {
-        start = (this.task.width / 100) * this.task.progress;
-      }
+      const start = (this.task.width / 100) * this.task.progress;
       return `M ${start} 0 L ${start} ${this.task.height}`;
     },
 
@@ -5290,9 +5279,9 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
           attrs: {
             x: _vm.task.xP,
             y: _vm.task.yP,
-            width: _vm.task.widthE,
+            width: _vm.task.widthP,
             height: _vm.task.height,
-            viewBox: "0 0 " + _vm.task.widthE + " " + _vm.task.height,
+            viewBox: "0 0 " + _vm.task.widthP + " " + _vm.task.height,
             xmlns: "http://www.w3.org/2000/svg"
           },
           on: {
@@ -5349,18 +5338,8 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
               _vm.task.style["chart-row-bar-polygon-estimated"]
             ),
             attrs: { points: _vm.getPoints }
-          }),
-          _vm._v(" "),
-          _vm.root.state.options.chart.progress.showOnActualTask
-            ? _c("progress-bar", {
-                attrs: {
-                  task: _vm.task,
-                  "clip-path": "url(#" + _vm.clipPathId + ")"
-                }
-              })
-            : _vm._e()
-        ],
-        1
+          })
+        ]
       )
     ]
   )
@@ -5372,7 +5351,6 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
 // CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue?vue&type=template&id=04a55a4e&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/TaskPlanned.vue?vue&type=script&lang=js&
-//
 //
 //
 //
@@ -5461,7 +5439,7 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
      */
     getPoints() {
       const task = this.task;
-      return `0,0 ${task.widthE},0 ${task.widthE},${task.height} 0,${task.height}`;
+      return `0,0 ${task.widthP},0 ${task.widthP},${task.height} 0,${task.height}`;
     }
   }
 });
@@ -7053,8 +7031,7 @@ function getOptions(userOptions) {
         width: 20, //*
         height: 6, //*
         pattern: true,
-        bar: false,
-        showOnActualTask: true
+        bar: false
       },
       text: {
         offset: 4, //*
@@ -7556,6 +7533,12 @@ const GanttElastic = {
         }
         if (typeof task.durationPlanned === 'undefined' && task.hasOwnProperty('endTimePlanned')) {
           task.durationPlanned = task.endTimePlanned - task.startTimePlanned;
+        }
+        if (typeof task.offsetY === 'undefined') {
+          task.offsetY = 0;
+        }
+        if (typeof task.offsetYPlanned === 'undefined') {
+          task.offsetYPlanned = 0;
         }
       }
       return tasks;
@@ -8488,23 +8471,32 @@ const GanttElastic = {
       let len = visibleTasks.length;
       for (let index = 0; index < len; index++) {
         let task = visibleTasks[index];
-        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
         task.width =
           task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
         if (task.width < 0) {
           task.width = 0;
         }
-        task.height = task.isPlanned ? this.state.options.row.height / 2 : this.state.options.row.height;
-        task.x = this.timeToPixelOffsetX(task.startTime);
-        task.y =
-          (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
-          this.state.options.chart.grid.horizontal.gap;
-        // parameters of planned task view
-        task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
-        task.yP = task.y + task.height + this.state.options.chart.grid.horizontal.gap / 2;
-        task.widthE = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
-        if (task.widthE < 0) {
-          task.widthE = 0;
+
+        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
+        if (task.isPlanned) {
+          task.height = this.state.options.row.height / 2;
+          task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
+          task.yP =
+            (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
+            this.state.options.chart.grid.horizontal.gap + task.offsetYPlanned;
+          // parameters of planned task view
+          task.x = this.timeToPixelOffsetX(task.startTime);
+          task.y = task.yP + task.height + task.offsetY - task.offsetYPlanned;
+          task.widthP = task.durationPlanned / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
+          if (task.widthP < 0) {
+            task.widthP = 0;
+          }
+        } else {
+          task.height = this.state.options.row.height;
+          task.x = this.timeToPixelOffsetX(task.startTime);
+          task.y =
+            (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
+            this.state.options.chart.grid.horizontal.gap + task.offsetY;
         }
       }
       return visibleTasks;
