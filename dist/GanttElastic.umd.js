@@ -2706,7 +2706,7 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                             attrs: { task: task }
                           },
                           [
-                            task.isPlanned
+                            _vm.root.state.options.showPlanned && task.isPlanned
                               ? _c("task-planned", { attrs: { task: task } })
                               : _vm._e(),
                             _vm._v(" "),
@@ -7016,6 +7016,7 @@ function getOptions(userOptions) {
       stepDuration: 'day',
       steps: []
     },
+    showPlanned: true,
     row: {
       height: 24 //*
     },
@@ -8477,8 +8478,8 @@ const GanttElastic = {
           task.width = 0;
         }
 
-        task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
-        if (task.isPlanned) {
+        if (this.state.options.showPlanned) {
+          task.isPlanned = task.startTimePlanned > 0 && task.durationPlanned > 0;
           task.height = this.state.options.row.height / 2;
           task.xP = this.timeToPixelOffsetX(task.startTimePlanned);
           task.yP =
