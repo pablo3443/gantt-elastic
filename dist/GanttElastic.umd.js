@@ -4481,11 +4481,20 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
         [
           _c("defs", [
             _c("clipPath", { attrs: { id: _vm.clipPathId } }, [
-              _c("polygon", { attrs: { points: _vm.getPoints } })
+              _c("rect", {
+                attrs: {
+                  x: "0",
+                  y: "0",
+                  width: "100%",
+                  height: "100%",
+                  rx: "3",
+                  ry: "3"
+                }
+              })
             ])
           ]),
           _vm._v(" "),
-          _c("polygon", {
+          _c("rect", {
             staticClass:
               "gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-task-polygon",
             style: Object.assign(
@@ -4495,7 +4504,14 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
               _vm.task.style["base"],
               _vm.task.style["chart-row-bar-polygon"]
             ),
-            attrs: { points: _vm.getPoints }
+            attrs: {
+              x: "0",
+              y: "0",
+              width: "100%",
+              height: "100%",
+              rx: "5",
+              ry: "5"
+            }
           }),
           _vm._v(" "),
           _c("progress-bar", {
@@ -5182,6 +5198,19 @@ ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5197,9 +5226,6 @@ ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
   inject: ['root'],
   props: ['task'],
   mixins: [Task_mixin],
-  data() {
-    return {};
-  },
   computed: {
     /**
      * Get clip path id
@@ -5208,16 +5234,6 @@ ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
      */
     clipPathId() {
       return 'gantt-elastic__task-clip-path-' + this.task.id;
-    },
-
-    /**
-     * Get points
-     *
-     * @returns {string}
-     */
-    getPoints() {
-      const task = this.task;
-      return `0,0 ${task.width},0 ${task.width},${task.height} 0,${task.height}`;
     }
   }
 });
@@ -5321,13 +5337,7 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
           }
         },
         [
-          _c("defs", [
-            _c("clipPath", { attrs: { id: _vm.clipPathId } }, [
-              _c("polygon", { attrs: { points: _vm.getPoints } })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("polygon", {
+          _c("rect", {
             staticClass:
               "gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-bar-polygon-estimated",
             style: Object.assign(
@@ -5337,7 +5347,14 @@ var TaskPlannedvue_type_template_id_04a55a4e_render = function() {
               _vm.task.style["base"],
               _vm.task.style["chart-row-bar-polygon-estimated"]
             ),
-            attrs: { points: _vm.getPoints }
+            attrs: {
+              x: "0",
+              y: "0",
+              width: "100%",
+              height: "100%",
+              rx: "5",
+              ry: "5"
+            }
           })
         ]
       )
@@ -5418,30 +5435,7 @@ TaskPlannedvue_type_template_id_04a55a4e_render._withStripped = true
   },
   inject: ['root'],
   props: ['task'],
-  mixins: [Task_mixin],
-  data() {
-    return {};
-  },
-  computed: {
-    /**
-     * Get clip path id
-     *
-     * @returns {string}
-     */
-    clipPathId() {
-      return 'gantt-elastic__task-clip-path-' + this.task.id;
-    },
-
-    /**
-     * Get points
-     *
-     * @returns {string}
-     */
-    getPoints() {
-      const task = this.task;
-      return `0,0 ${task.widthP},0 ${task.widthP},${task.height} 0,${task.height}`;
-    }
-  }
+  mixins: [Task_mixin]
 });
 
 // CONCATENATED MODULE: ./src/components/Chart/Row/TaskPlanned.vue?vue&type=script&lang=js&
@@ -6847,7 +6841,7 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
     },
     'chart-row-progress-bar-solid': {
       fill: '#0EAC51',
-      height: '20%'
+      height: '100%'
     },
     'chart-row-progress-bar-pattern': {
       fill: 'url(#diagonalHatch)',

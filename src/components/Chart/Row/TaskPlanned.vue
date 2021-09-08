@@ -36,21 +36,21 @@
       @touchend="emitEvent('touchend', $event)"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs>
-        <clipPath :id="clipPathId">
-          <polygon :points="getPoints"></polygon>
-        </clipPath>
-      </defs>
-      <polygon
+      <rect
         class="gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-bar-polygon-estimated"
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        rx="5"
+        ry="5"
         :style="{
           ...root.style['chart-row-bar-polygon'],
           ...root.style['chart-row-task-polygon'],
           ...task.style['base'],
           ...task.style['chart-row-bar-polygon-estimated']
         }"
-        :points="getPoints"
-      ></polygon>
+      ></rect>
     </svg>
   </g>
 </template>
@@ -65,29 +65,6 @@ export default {
   },
   inject: ['root'],
   props: ['task'],
-  mixins: [taskMixin],
-  data() {
-    return {};
-  },
-  computed: {
-    /**
-     * Get clip path id
-     *
-     * @returns {string}
-     */
-    clipPathId() {
-      return 'gantt-elastic__task-clip-path-' + this.task.id;
-    },
-
-    /**
-     * Get points
-     *
-     * @returns {string}
-     */
-    getPoints() {
-      const task = this.task;
-      return `0,0 ${task.widthP},0 ${task.widthP},${task.height} 0,${task.height}`;
-    }
-  }
+  mixins: [taskMixin]
 };
 </script>

@@ -289,7 +289,7 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
     },
     'chart-row-progress-bar-solid': {
       fill: '#0EAC51',
-      height: '20%'
+      height: '100%'
     },
     'chart-row-progress-bar-pattern': {
       fill: 'url(#diagonalHatch)',

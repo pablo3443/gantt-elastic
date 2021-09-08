@@ -53,19 +53,32 @@
     >
       <defs>
         <clipPath :id="clipPathId">
-          <polygon :points="getPoints"></polygon>
+          <rect 
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          rx="3"
+          ry="3"
+          >
+          </rect>
         </clipPath>
       </defs>
-      <polygon
+      <rect
         class="gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-task-polygon"
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        rx="5"
+        ry="5"
         :style="{
           ...root.style['chart-row-bar-polygon'],
           ...root.style['chart-row-task-polygon'],
           ...task.style['base'],
           ...task.style['chart-row-bar-polygon']
         }"
-        :points="getPoints"
-      ></polygon>
+      ></rect>
       <progress-bar :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
     <foreignObject
@@ -118,9 +131,6 @@ export default {
   inject: ['root'],
   props: ['task'],
   mixins: [taskMixin],
-  data() {
-    return {};
-  },
   computed: {
     /**
      * Get clip path id
@@ -129,16 +139,6 @@ export default {
      */
     clipPathId() {
       return 'gantt-elastic__task-clip-path-' + this.task.id;
-    },
-
-    /**
-     * Get points
-     *
-     * @returns {string}
-     */
-    getPoints() {
-      const task = this.task;
-      return `0,0 ${task.width},0 ${task.width},${task.height} 0,${task.height}`;
     }
   }
 };
