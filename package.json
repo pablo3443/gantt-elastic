@@ -1,6 +1,6 @@
 {
   "name": "comindware-gantt-elastic",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Gantt chart. Elastic javascript gantt chart. Vue and standalone gantt. Project manager responsive gantt",
   "main": "src/GanttElastic.vue",
   "dependencies": {
