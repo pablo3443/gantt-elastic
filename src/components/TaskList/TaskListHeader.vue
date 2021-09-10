@@ -16,53 +16,61 @@
     }"
   >
     <div
-      class="gantt-elastic__task-list-header-column"
+      class="gantt-elastic__task-list-header-row"
       :style="{
+      ...root.style['task-list-header-row'],
+      ...getHeight()
+    }"
+    >
+      <div
+        class="gantt-elastic__task-list-header-column"
+        :style="{
         ...root.style['task-list-header-column'],
         ...column.style['task-list-header-column'],
         ...getStyle(column)
       }"
-      v-for="column in root.getTaskListColumns"
-      :key="column._id"
-    >
-      <task-list-expander
-        v-if="column.expander"
-        :tasks="collapsible"
-        :options="root.state.options.taskList.expander"
-      ></task-list-expander>
-      <div
-        class="gantt-elastic__task-list-header-label"
-        :style="{ ...root.style['task-list-header-label'], ...column.style['task-list-header-label'] }"
-        :column="column"
-        @mouseup="resizerMouseUp"
+        v-for="column in root.getTaskListColumns"
+        :key="column._id"
       >
-        {{ column.label }}
-      </div>
-      <div
-        class="gantt-elastic__task-list-header-resizer-wrapper"
-        :style="{
+        <task-list-expander
+          v-if="column.expander"
+          :tasks="collapsible"
+          :options="root.state.options.taskList.expander"
+        ></task-list-expander>
+        <div
+          class="gantt-elastic__task-list-header-label"
+          :style="{ ...root.style['task-list-header-label'], ...column.style['task-list-header-label'] }"
+          :column="column"
+          @mouseup="resizerMouseUp"
+        >
+          {{ column.label }}
+        </div>
+        <div
+          class="gantt-elastic__task-list-header-resizer-wrapper"
+          :style="{
           ...root.style['task-list-header-resizer-wrapper'],
           ...column.style['task-list-header-resizer-wrapper']
         }"
-        :column="column"
-        @mousedown="resizerMouseDown($event, column)"
-      >
-        <div
-          class="gantt-elastic__task-list-header-resizer"
-          :style="{ ...root.style['task-list-header-resizer'], ...column.style['task-list-header-resizer'] }"
+          :column="column"
+          @mousedown="resizerMouseDown($event, column)"
         >
           <div
-            class="gantt-elastic__task-list-header-resizer-dot"
-            :style="{ ...root.style['task-list-header-resizer-dot'], ...column.style['task-list-header-resizer-dot'] }"
-          ></div>
-          <div
-            class="gantt-elastic__task-list-header-resizer-dot"
-            :style="{ ...root.style['task-list-header-resizer-dot'], ...column.style['task-list-header-resizer-dot'] }"
-          ></div>
-          <div
-            class="gantt-elastic__task-list-header-resizer-dot"
-            :style="{ ...root.style['task-list-header-resizer-dot'], ...column.style['task-list-header-resizer-dot'] }"
-          ></div>
+            class="gantt-elastic__task-list-header-resizer"
+            :style="{ ...root.style['task-list-header-resizer'], ...column.style['task-list-header-resizer'] }"
+          >
+            <div
+              class="gantt-elastic__task-list-header-resizer-dot"
+              :style="{ ...root.style['task-list-header-resizer-dot'], ...column.style['task-list-header-resizer-dot'] }"
+            ></div>
+            <div
+              class="gantt-elastic__task-list-header-resizer-dot"
+              :style="{ ...root.style['task-list-header-resizer-dot'], ...column.style['task-list-header-resizer-dot'] }"
+            ></div>
+            <div
+              class="gantt-elastic__task-list-header-resizer-dot"
+              :style="{ ...root.style['task-list-header-resizer-dot'], ...column.style['task-list-header-resizer-dot'] }"
+            ></div>
+          </div>
         </div>
       </div>
     </div>
@@ -108,6 +116,18 @@ export default {
     getStyle(column) {
       return {
         width: column.finalWidth + 'px'
+      };
+    },
+    /**
+     * Get style
+     *
+     * @returns {object}
+     */
+    getHeight() {
+      const calendarItems = Object.keys(this.root.state.options.calendar).reverse(); // calendar items from year to hour
+      const firstRowItem = calendarItems.find(item => this.root.state.options.calendar[item].display);
+      return {
+        height: `${this.root.state.options.calendar[firstRowItem].height}px`,
       };
     },
     /**

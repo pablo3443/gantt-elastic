@@ -16,7 +16,9 @@
     :style="{ ...root.style['chart-dependency-lines-container'] }"
   >
     <defs>
-      <marker id="gantt-elastic__chart-dependency-lines-marker" viewBox="0 0 10 10"
+      <marker id="gantt-elastic__chart-dependency-lines-marker"
+            :style="{...root.style['chart-dependency-lines-marker']}"
+            viewBox="0 0 10 10"
             refX="10" refY="5"
             markerUnits="strokeWidth"
             markerWidth="4" markerHeight="4"
