@@ -1485,107 +1485,124 @@ var TaskListHeadervue_type_template_id_aefdd7c8_render = function() {
         "margin-bottom": _vm.root.state.options.calendar.gap + "px"
       })
     },
-    _vm._l(_vm.root.getTaskListColumns, function(column) {
-      return _c(
+    [
+      _c(
         "div",
         {
-          key: column._id,
-          staticClass: "gantt-elastic__task-list-header-column",
+          staticClass: "gantt-elastic__task-list-header-row",
           style: Object.assign(
             {},
-            _vm.root.style["task-list-header-column"],
-            column.style["task-list-header-column"],
-            _vm.getStyle(column)
+            _vm.root.style["task-list-header-row"],
+            _vm.getHeight()
           )
         },
-        [
-          column.expander
-            ? _c("task-list-expander", {
-                attrs: {
-                  tasks: _vm.collapsible,
-                  options: _vm.root.state.options.taskList.expander
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
+        _vm._l(_vm.root.getTaskListColumns, function(column) {
+          return _c(
             "div",
             {
-              staticClass: "gantt-elastic__task-list-header-label",
+              key: column._id,
+              staticClass: "gantt-elastic__task-list-header-column",
               style: Object.assign(
                 {},
-                _vm.root.style["task-list-header-label"],
-                column.style["task-list-header-label"]
-              ),
-              attrs: { column: column },
-              on: { mouseup: _vm.resizerMouseUp }
-            },
-            [_vm._v("\n      " + _vm._s(column.label) + "\n    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "gantt-elastic__task-list-header-resizer-wrapper",
-              style: Object.assign(
-                {},
-                _vm.root.style["task-list-header-resizer-wrapper"],
-                column.style["task-list-header-resizer-wrapper"]
-              ),
-              attrs: { column: column },
-              on: {
-                mousedown: function($event) {
-                  return _vm.resizerMouseDown($event, column)
-                }
-              }
+                _vm.root.style["task-list-header-column"],
+                column.style["task-list-header-column"],
+                _vm.getStyle(column)
+              )
             },
             [
+              column.expander
+                ? _c("task-list-expander", {
+                    attrs: {
+                      tasks: _vm.collapsible,
+                      options: _vm.root.state.options.taskList.expander
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass: "gantt-elastic__task-list-header-resizer",
+                  staticClass: "gantt-elastic__task-list-header-label",
                   style: Object.assign(
                     {},
-                    _vm.root.style["task-list-header-resizer"],
-                    column.style["task-list-header-resizer"]
-                  )
+                    _vm.root.style["task-list-header-label"],
+                    column.style["task-list-header-label"]
+                  ),
+                  attrs: { column: column },
+                  on: { mouseup: _vm.resizerMouseUp }
+                },
+                [_vm._v("\n        " + _vm._s(column.label) + "\n      ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "gantt-elastic__task-list-header-resizer-wrapper",
+                  style: Object.assign(
+                    {},
+                    _vm.root.style["task-list-header-resizer-wrapper"],
+                    column.style["task-list-header-resizer-wrapper"]
+                  ),
+                  attrs: { column: column },
+                  on: {
+                    mousedown: function($event) {
+                      return _vm.resizerMouseDown($event, column)
+                    }
+                  }
                 },
                 [
-                  _c("div", {
-                    staticClass: "gantt-elastic__task-list-header-resizer-dot",
-                    style: Object.assign(
-                      {},
-                      _vm.root.style["task-list-header-resizer-dot"],
-                      column.style["task-list-header-resizer-dot"]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c("div", {
-                    staticClass: "gantt-elastic__task-list-header-resizer-dot",
-                    style: Object.assign(
-                      {},
-                      _vm.root.style["task-list-header-resizer-dot"],
-                      column.style["task-list-header-resizer-dot"]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c("div", {
-                    staticClass: "gantt-elastic__task-list-header-resizer-dot",
-                    style: Object.assign(
-                      {},
-                      _vm.root.style["task-list-header-resizer-dot"],
-                      column.style["task-list-header-resizer-dot"]
-                    )
-                  })
+                  _c(
+                    "div",
+                    {
+                      staticClass: "gantt-elastic__task-list-header-resizer",
+                      style: Object.assign(
+                        {},
+                        _vm.root.style["task-list-header-resizer"],
+                        column.style["task-list-header-resizer"]
+                      )
+                    },
+                    [
+                      _c("div", {
+                        staticClass:
+                          "gantt-elastic__task-list-header-resizer-dot",
+                        style: Object.assign(
+                          {},
+                          _vm.root.style["task-list-header-resizer-dot"],
+                          column.style["task-list-header-resizer-dot"]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass:
+                          "gantt-elastic__task-list-header-resizer-dot",
+                        style: Object.assign(
+                          {},
+                          _vm.root.style["task-list-header-resizer-dot"],
+                          column.style["task-list-header-resizer-dot"]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass:
+                          "gantt-elastic__task-list-header-resizer-dot",
+                        style: Object.assign(
+                          {},
+                          _vm.root.style["task-list-header-resizer-dot"],
+                          column.style["task-list-header-resizer-dot"]
+                        )
+                      })
+                    ]
+                  )
                 ]
               )
-            ]
+            ],
+            1
           )
-        ],
-        1
+        }),
+        0
       )
-    }),
-    0
+    ]
   )
 }
 var TaskListHeadervue_type_template_id_aefdd7c8_staticRenderFns = []
@@ -2009,6 +2026,14 @@ component.options.__file = "src/components/Expander.vue"
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ var TaskListHeadervue_type_script_lang_js_ = ({
@@ -2048,6 +2073,18 @@ component.options.__file = "src/components/Expander.vue"
     getStyle(column) {
       return {
         width: column.finalWidth + 'px'
+      };
+    },
+    /**
+     * Get style
+     *
+     * @returns {object}
+     */
+    getHeight() {
+      const calendarItems = Object.keys(this.root.state.options.calendar).reverse(); // calendar items from year to hour
+      const firstRowItem = calendarItems.find(item => this.root.state.options.calendar[item].display);
+      return {
+        height: `${this.root.state.options.calendar[firstRowItem].height}px`,
       };
     },
     /**
@@ -4150,6 +4187,10 @@ var DependencyLinesvue_type_template_id_f1cbf6ba_render = function() {
         _c(
           "marker",
           {
+            style: Object.assign(
+              {},
+              _vm.root.style["chart-dependency-lines-marker"]
+            ),
             attrs: {
               id: "gantt-elastic__chart-dependency-lines-marker",
               viewBox: "0 0 10 10",
@@ -4203,6 +4244,8 @@ DependencyLinesvue_type_template_id_f1cbf6ba_render._withStripped = true
 // CONCATENATED MODULE: ./src/components/Chart/DependencyLines.vue?vue&type=template&id=f1cbf6ba&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/DependencyLines.vue?vue&type=script&lang=js&
+//
+//
 //
 //
 //
@@ -6617,10 +6660,12 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
     'task-list-wrapper': {},
     'task-list': { background: 'transparent', 'border-color': '#eee' },
     'task-list-header': {
+      display: 'flex'
+    },
+    'task-list-header-row': {
       display: 'flex',
       'user-select': 'none',
       'vertical-align': 'middle',
-      'border-bottom': '1px solid #eee',
       'border-left': '1px solid #eee'
     },
     'task-list-header-column': {
