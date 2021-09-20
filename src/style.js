@@ -74,10 +74,12 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
     'task-list-wrapper': {},
     'task-list': { background: 'transparent', 'border-color': '#eee' },
     'task-list-header': {
+      display: 'flex'
+    },
+    'task-list-header-row': {
       display: 'flex',
       'user-select': 'none',
       'vertical-align': 'middle',
-      'border-bottom': '1px solid #eee',
       'border-left': '1px solid #eee'
     },
     'task-list-header-column': {
