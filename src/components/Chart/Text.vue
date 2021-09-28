@@ -30,7 +30,8 @@
           }"
           v-if="!html"
         >
-          <div>{{ task.label }}</div>
+          <div v-if="task.showProgress">{{ task.progress ? task.progress : 0 }}%</div>
+          <div v-else>{{ task.label }}</div>
         </div>
         <div
           class="gantt-elastic__chart-row-text-content gantt-elastic__chart-row-text-content--html"
@@ -39,7 +40,17 @@
             ...root.style['chart-row-text-content--html'],
             ...contentStyle
           }"
-          v-if="html"
+          v-if="html && task.showProgress"
+          v-html="task.progress ? task.progress + '%' : '0%'"
+        ></div>
+        <div
+          class="gantt-elastic__chart-row-text-content gantt-elastic__chart-row-text-content--html"
+          :style="{
+            ...root.style['chart-row-text-content'],
+            ...root.style['chart-row-text-content--html'],
+            ...contentStyle
+          }"
+          v-if="html && !task.showProgress"
           v-html="task.label"
         ></div>
       </div>
