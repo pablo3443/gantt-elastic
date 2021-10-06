@@ -54,9 +54,10 @@ export default {
      *
      * @param {any} fromTaskId
      * @param {any} toTaskId
-     * @returns {string}
+     * @param {any} dependencyType
+     * @returns {string|null}
      */
-    getPoints(fromTaskId, toTaskId) {
+    getPoints(fromTaskId, toTaskId, dependencyType) {
       const fromTask = this.root.getTask(fromTaskId);
       const toTask = this.root.getTask(toTaskId);
       if (
@@ -67,10 +68,30 @@ export default {
       ) {
         return null;
       }
-      const startX = fromTask.isPlanned ? fromTask.xP + fromTask.widthP : fromTask.x + fromTask.width;
+
+      let startX, stopX;
+      switch (dependencyType) {
+        case 'startToStart':
+          startX = fromTask.isPlanned ? fromTask.xP : fromTask.x;
+          stopX = toTask.isPlanned ? toTask.xP : toTask.x;
+          break;
+        case 'endToEnd':
+          startX = fromTask.isPlanned ? fromTask.xP + fromTask.widthP : fromTask.x + fromTask.width;
+          stopX = toTask.isPlanned ? toTask.xP + toTask.widthP : toTask.x + toTask.width;
+          break;
+        case 'startToEnd':
+          startX = fromTask.isPlanned ? fromTask.xP : fromTask.x;
+          stopX = toTask.isPlanned ? toTask.xP + toTask.widthP : toTask.x + toTask.width;
+          break;
+        case 'endToStart':
+        default:
+          startX = fromTask.isPlanned ? fromTask.xP + fromTask.widthP : fromTask.x + fromTask.width;
+          stopX = toTask.isPlanned ? toTask.xP : toTask.x;
+          break;
+      }
       const startY = fromTask.isPlanned ? fromTask.yP + fromTask.height / 2 : fromTask.y + fromTask.height / 2;
-      const stopX = toTask.isPlanned ? toTask.xP : toTask.x;
       const stopY = toTask.isPlanned ? toTask.yP + toTask.height / 2: toTask.y + toTask.height / 2;
+
       const distanceX = stopX - startX;
       let distanceY;
       let yMultiplier = 1;
@@ -119,8 +140,8 @@ export default {
       return this.tasks
         .filter(task => typeof task.dependentOn !== 'undefined')
         .map(task => {
-          task.dependencyLines = task.dependentOn.map(id => {
-            return { points: this.getPoints(id, task.id), task_id: id };
+          task.dependencyLines = task.dependentOn.map(item => {
+            return { points: this.getPoints(item.previousTask, task.id, item.dependencyType), task_id: item.previousTask};
           });
           return task;
         })
